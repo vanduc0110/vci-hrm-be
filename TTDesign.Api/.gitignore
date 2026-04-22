@@ -1,0 +1,14 @@
+.git/*
+.vs/*
+.idea/*
+.vs/*
+
+bin/*
+obj/*
+result/*
+
+TTDesign.API.csproj.user
+
+logs/*
+Properties/PublishProfiles/*
+appsettings.Staging.json

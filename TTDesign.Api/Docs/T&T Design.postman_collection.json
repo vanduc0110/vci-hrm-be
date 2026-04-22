@@ -1,0 +1,4743 @@
+{
+	"info": {
+		"_postman_id": "e73bdfa7-9aa1-4a44-b0a2-65ce9ab10a49",
+		"name": "T&T Design",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2736073"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"pm.environment.set(\"accessToken\", res.accessToken);\r",
+									"pm.environment.set(\"refreshToken\", res.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"p.c.huy@ttdesignco.com\", \r\n  \"password\": \"ttdesignco\"\r\n}\r\n// system \r\n// Team 1 - p.c.hoan (leader) p.c.huy (sub-leader) d.d.quang, v.d.toan, b.h.nguyen\r\n// Team 2 - p.q.lam (leader) v.v.khu (sub-leader) n.h.son, n.s.hiep, n.v.duc\r\n// Team 4 - n.t.h.trang (leader) n.t.nguyen"
+						},
+						"url": {
+							"raw": "{{api}}/api/login",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"pm.environment.set(\"accessToken\", res.accessToken);\r",
+									"pm.environment.set(\"refreshToken\", res.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"token\": \"ADrCE4elE4+btVeWiXkQU0C4B4ak47DlKIb4G8zJOHo9MQNtAt7Rz/MeKBJwDrxjUw==\",\r\n  \"userEmail\": \"demo5@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{api}}/api/token/refresh",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"token",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "revokeToken",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"token\": \"APjI9NGLzdp/XopfRMWygQSREazk2a0COiEgUe6Ad5/YaX4qKpt3tqnj99ztDYliCQ==\"\r\n}"
+						},
+						"url": {
+							"raw": "{{api}}/api/token/revoke",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"token",
+								"revoke"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMenuAccess",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Auth/GetMenuAccess",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Auth",
+								"GetMenuAccess"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RequestResetPassword",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"d.d.quang@ttdesignco.com\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/RequestResetPassword",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"RequestResetPassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GetDetail/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Users/GetDetail/4",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"GetDetail",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"fullName\": \" nhân  viên số 4 \",\r\n    \"email\": \" tEst4@ttdesignco.com \",\r\n    \"staffId\": \" 4 \",\r\n    \"position\": \"Official\",\r\n    \"role\": \"Official Staff\",\r\n    \"dateStartWork\": \"2020-10-20\",\r\n    \"fingerId\": 4,\r\n    // \"phoneNumber\": \"0987654321\",\r\n    // \"gender\": \"MALE\",\r\n    // \"birthday\": \"2010-10-21\",\r\n    // \"idNo\": \"3\",\r\n    // \"issuedTo\": \"2013/12/22\",\r\n    // \"issuedBy\": \"CỤC AN NINH\",\r\n    // \"address\": \"167 TRUNG KÍNH\",\r\n    // \"socialInsuranceBookNo\": \"ABC\",\r\n    // \"aboutMe\": \"TEST DEMO\",\r\n    \"teamId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Users/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Users/GetListView",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"GetListView"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditSetting",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"EmailNotification\": 1,\r\n    \"Timezone\": \"demo timezone 3\",\r\n    \"Language\": \"Vietnamese 3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Users/EditSetting",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"EditSetting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangeStatus",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Users/ChangeStatus/5",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"ChangeStatus",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCredential",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Users/GetCredential",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"GetCredential"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangePassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"oldPassword\": \"ttdesignco\",\r\n  \"newPassword\": \"ttdesignco2\"\r\n}"
+						},
+						"url": {
+							"raw": "{{api}}/api/Users/ChangeState",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"ChangeState"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"fullName\": \"nhân viên số 3\",\r\n    \"email\": \"tEst3@ttdesignco.com\",\r\n    \"staffId\": \"3\",\r\n    \"position\": \"Leader\",\r\n    \"role\": \"Team Lead\",\r\n    \"state\": \"Available\",\r\n    \"dateStartWork\": \"2020-10-20T00:00:00\",\r\n    \"avatar\": null,\r\n    \"fingerId\": 3,\r\n    // \"phoneNumber\": \"0987654321\",\r\n    // \"gender\": \"MALE\",\r\n    // \"birthday\": \"2010-10-21\",\r\n    // \"idNo\": \"3\",\r\n    // \"issuedTo\": \"2013/12/22\",\r\n    // \"issuedBy\": \"CỤC AN NINH\",\r\n    // \"address\": \"167 TRUNG KÍNH\",\r\n    // \"socialInsuranceBookNo\": \"ABC\",\r\n    // \"aboutMe\": \"TEST DEMO\",\r\n    \"teamId\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Users/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOption",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhYzQ3NGUwZC1iOWU2LTQ2NjMtYjJjOS1jNTU4YTllMDg2MTIiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmY6ZGFzaGJvYXJkIjoidmlldyIsInN0YWZmOnRpbWVzaGVldCI6InZpZXciLCJzdGFmZjp0aW1lc2hlZXQ6b3RoZXIiOiJ2aWV3Iiwic3RhZmY6b3ZlcnRpbWUiOiJ2aWV3Iiwic3RhZmY6bGVhdmUiOiJ2aWV3Iiwic3RhZmY6aG9saWRheSI6WyJ2aWV3IiwiY3JlYXRlIiwiZGVsZXRlIl0sInN0YWZmOmFzc2V0IjoidmlldyIsInN0YWZmOmNhbGVuZGFyIjoidmlldyIsImFkbWluOnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJpbmFjdGl2ZSJdLCJhZG1pbjp0ZWFtIjpbInZpZXciLCJjcmVhdGUiLCJlZGl0IiwiZGVsZXRlIl0sImFkbWluOmdyb3VwIjpbInZpZXciLCJjcmVhdGUiLCJlZGl0IiwiZGVsZXRlIl0sImFkbWluOnJvbGUiOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW46dGltZXNoZWV0IjpbInZpZXciLCJjcmVhdGUiLCJlZGl0IiwiZGVsZXRlIl0sImFkbWluOnByb2plY3QiOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW46ZmluZ2VycHJpbnQiOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW46dGltZXNoZWV0OnJlcG9ydCI6InZpZXciLCJhZG1pbjpvdmVydGltZSI6WyJ2aWV3IiwiYXBwcm92ZSJdLCJhZG1pbjpvdmVydGltZTpzdW1tYXJ5IjoidmlldyIsImFkbWluOmxlYXZlZm9ybSI6WyJ2aWV3IiwiYXBwcm92ZSIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW46bGVhdmVmb3JtOnN1bW1hcnkiOiJ2aWV3IiwiYWRtaW46YXNzZXQiOlsidmlldyIsImFwcHJvdmUiLCJjcmVhdGUiLCJlZGl0IiwiZGVsZXRlIl0sIm5iZiI6MTY5NTYxNjc5OCwiZXhwIjoxNjk1NzAzMTk4LCJpc3MiOiJUVEQtQVBJIn0.1cZ1llAWRD3mUvQJur_FuyeIf9m2III8Jg5bv814Sac"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Users/GetOption",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"GetOption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResetPassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Users/ResetPassword/5",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"ResetPassword",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSetting",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Users/GetSetting",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"GetSetting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetSetting",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Users/GetSetting",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"GetSetting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateSetting",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"emailNotification\": 0,\r\n    \"timezone\": \"BangKok, Ha Noi (UTC +7)1\",\r\n    \"language\": \"English2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Users/EditSetting",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"EditSetting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDynamicOption",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Users/GetDynamicOption",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"GetDynamicOption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDashboardUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Users/GetDashboardUser",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"GetDashboardUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Other",
+			"item": [
+				{
+					"name": "GetOptionPosition",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetOptionPosition",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetOptionPosition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOptionStatus",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetOptionStatus",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetOptionStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOptionClient",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetOptionClient",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetOptionClient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOptionStateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetOptionStateUser",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetOptionStateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOptionTypeProject",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetOptionTypeProject",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetOptionTypeProject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOptionStatusProject",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetOptionStatusProject",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetOptionStatusProject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetNewProjectNumber",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetNewProjectNumber",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetNewProjectNumber"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOptionTypeRequestLeave",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetOptionTypeRequestLeave",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetOptionTypeRequestLeave"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCalendarAsset",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetCalendarAsset",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetCalendarAsset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCalendarColor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/GetCalendarColor",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"GetCalendarColor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team",
+			"item": [
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Team/GetListView",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Team",
+								"GetListView"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"Team demo 5\",\r\n    \"name\": \"team demo 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Team/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Team",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 10,\r\n    \"code\": \"Team demo 6\",\r\n    \"name\": \"team demo 2\"\r\n}"
+						},
+						"url": {
+							"raw": "{{api}}/api/Team/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Team",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Team/Delete/10",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Team",
+								"Delete",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOption",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Team/GetOption",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Team",
+								"GetOption"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Group",
+			"item": [
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Group/GetListView",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Group",
+								"GetListView"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"   group 3  \",\r\n    \"name\": \"   group   2    \",\r\n    \"teamId\": 2,\r\n    \"members\": [3,5]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Group/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Group",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDetail/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Group/GetDetail/5",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Group",
+								"GetDetail",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"code\": \"GROUP4\",\r\n    \"name\": \"group 3\",\r\n    \"teamId\": 3,\r\n    \"members\": [2, 4]\r\n}"
+						},
+						"url": {
+							"raw": "{{api}}/api/Group/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Group",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Group/Delete/3",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Group",
+								"Delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOption",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Group/GetOption",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Group",
+								"GetOption"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Project/GetListView",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"GetListView"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": null,\r\n  \"type\": \"T1\",\r\n  \"code\": \"06l11R\",\r\n  \"teamId\": 1,\r\n  \"clientId\": 1,\r\n//   \"status\": \"string\",\r\n  \"quotationHour\": 10,\r\n  \"name\": \"T and T Design Company Website\",\r\n  \"manager\": 3,\r\n  \"startedDate\": \"2023-10-01\",\r\n  \"finishedDate\": null,\r\n  \"groupIds\": [\r\n    1\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Project/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDetail/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Project/GetDetail/1/true",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"GetDetail",
+								"1",
+								"true"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"type\": \"T\",\r\n  \"code\": \"06l11R\",\r\n  \"teamId\": 1,\r\n  \"clientId\": 1,\r\n  \"status\": \"Active\",\r\n  \"quotationHour\": 10.5,\r\n  \"name\": \"T and T Design Company Website\",\r\n  \"manager\": 3,\r\n  \"startedDate\": \"2023/10/01\",\r\n  \"finishedDate\": null,\r\n  \"groupIds\": [\r\n    1\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "{{api}}/api/Project/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Project/Delete/10",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"Delete",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOption",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Project/GetOption",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"GetOption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOptionWorking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Project/GetOptionWorking",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"GetOptionWorking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteDocument",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Project/DeleteDocument/1/4",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"DeleteDocument",
+								"1",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UploadDocument",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api}}/api/Project/UploadDocument/1",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"UploadDocument",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAnalysisView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Project/GetAnalysisView/1",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"GetAnalysisView",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CommentDocument",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"demo comment\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Project/CommentDocument/1/2",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Project",
+								"CommentDocument",
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Object",
+			"item": [
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Object/GetListView",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Object",
+								"GetListView"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Comment\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Object/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Object",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Object/Delete/7",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Object",
+								"Delete",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOption",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Object/GetOption",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Object",
+								"GetOption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 7,\r\n        \"name\": \"Bug 334\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Object/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Object",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Category/GetListView",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Category",
+								"GetListView"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Category/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Category",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Category/Delete/7",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Category",
+								"Delete",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOption",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNjU3ODk1MS02ZDk4LTQ1N2EtOTM0ZC1kOGFmYTZkM2M3OWQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsic3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOiJ2aWV3IiwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxNjUwMDIsImV4cCI6MTY5MDI1MTQwMiwiaXNzIjoiVFRELUFQSSJ9.f9aCgP6xeACnsvwtJO_QyZTPrefwWtJpL1yrl5cqtS4",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Category/GetOption",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Category",
+								"GetOption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 6,\r\n        \"name\": \"Bug 31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Category/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Category",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Role/GetListView",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Role",
+								"GetListView"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCollectionRole",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Role/GetCollectionRole",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Role",
+								"GetCollectionRole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDetail/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Role/GetDetail/9",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Role",
+								"GetDetail",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \" issue: create/update not found view list  \",\r\n    \"roles\": {\r\n        \"(Personal) Dashboard\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:dashboard\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Personal) Timesheet\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:timesheet\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) Timesheet.Other\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:timesheet:other\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"lock\",\r\n                \"type\": \"staff:timesheet:other\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Personal) Overtime\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:overtime\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) Leave\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:leave\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) Calendar\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:calendar\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) Asset\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:asset\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) WFH\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:wfh\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Admin) User\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:user\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:user\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:user\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"inactive\",\r\n                \"type\": \"admin:user\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Team\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:team\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:team\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:team\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:team\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Group\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:group\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:group\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:group\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:group\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Role\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:role\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:role\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:role\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:role\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Project\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:project\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:project\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:project\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:project\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Analysis\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:analysis\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"report\",\r\n                \"type\": \"admin:analysis\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Category\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:category\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:category\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:category\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:category\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Object\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:object\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:object\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:object\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:object\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Fingerprint\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:fingerprint\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:fingerprint\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:fingerprint\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Overtime\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:overtime\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"approve\",\r\n                \"type\": \"admin:overtime\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"report\",\r\n                \"type\": \"admin:overtime\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Leaveform\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:leaveform\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"approve\",\r\n                \"type\": \"admin:leaveform\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"report\",\r\n                \"type\": \"admin:leaveform\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"holiday\",\r\n                \"type\": \"admin:leaveform\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Asset\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:asset\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"approve\",\r\n                \"type\": \"admin:asset\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"report\",\r\n                \"type\": \"admin:asset\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) WFH\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:wfh\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"approve\",\r\n                \"type\": \"admin:wfh\",\r\n                \"isActive\": false\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Role/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Role",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 9,\r\n    \"name\": \"issue: create/update not found view list\",\r\n    \"roles\": {\r\n        \"(Personal) Dashboard\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:dashboard\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) Timesheet\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:timesheet\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) Timesheet.Other\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:timesheet:other\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"lock\",\r\n                \"type\": \"staff:timesheet:other\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Personal) Overtime\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:overtime\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) Leave\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:leave\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) Calendar\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:calendar\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) Asset\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:asset\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Personal) WFH\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"staff:wfh\",\r\n                \"isActive\": true\r\n            }\r\n        ],\r\n        \"(Admin) User\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:user\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:user\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:user\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"inactive\",\r\n                \"type\": \"admin:user\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Team\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:team\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:team\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:team\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:team\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Group\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:group\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:group\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:group\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:group\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Role\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:role\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:role\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:role\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:role\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Project\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:project\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:project\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:project\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:project\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Analysis\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:analysis\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"report\",\r\n                \"type\": \"admin:analysis\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Category\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:category\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:category\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:category\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:category\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Object\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:object\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"create\",\r\n                \"type\": \"admin:object\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:object\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:object\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Fingerprint\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:fingerprint\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"edit\",\r\n                \"type\": \"admin:fingerprint\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"delete\",\r\n                \"type\": \"admin:fingerprint\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Overtime\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:overtime\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"approve\",\r\n                \"type\": \"admin:overtime\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"report\",\r\n                \"type\": \"admin:overtime\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Leaveform\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:leaveform\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"approve\",\r\n                \"type\": \"admin:leaveform\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"report\",\r\n                \"type\": \"admin:leaveform\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"holiday\",\r\n                \"type\": \"admin:leaveform\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) Asset\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:asset\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"approve\",\r\n                \"type\": \"admin:asset\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"report\",\r\n                \"type\": \"admin:asset\",\r\n                \"isActive\": false\r\n            }\r\n        ],\r\n        \"(Admin) WFH\": [\r\n            {\r\n                \"name\": \"view\",\r\n                \"type\": \"admin:wfh\",\r\n                \"isActive\": false\r\n            },\r\n            {\r\n                \"name\": \"approve\",\r\n                \"type\": \"admin:wfh\",\r\n                \"isActive\": false\r\n            }\r\n        ]\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{api}}/api/Role/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Role",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMzE1M2YzNy0xODZkLTQ0MjgtYTcxZi1mYzdjMWMzZWE4YTQiLCJzdWIiOiIxIiwiZW1haWwiOiJzeXN0ZW1AdHRkZXNpZ25jby5jb20iLCJhdWQiOlsiU3lzdGVtIiwiQXVkaWVuY2UiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiMCIsIlRlYW0iOiIwIiwic3RhZmYuZGFzaGJvYXJkIjoidmlldyIsInN0YWZmLnNldHRpbmciOiJ2aWV3Iiwic3RhZmYudGltZXNoZWV0IjoidmlldyIsInN0YWZmLnRpbWVzaGVldC5vdGhlciI6InZpZXciLCJzdGFmZi5vdmVydGltZSI6InZpZXciLCJzdGFmZi5sZWF2ZSI6InZpZXciLCJzdGFmZi5ob2xpZGF5IjoidmlldyIsInN0YWZmLmFzc2V0IjoidmlldyIsInN0YWZmLmNhbGVuZGFyIjoidmlldyIsImFkbWluLnVzZXIiOlsidmlldyIsImNyZWF0ZSIsImluYWN0aXZlIiwiZWRpdCJdLCJhZG1pbi5yb2xlIjoidmlldyIsImFkbWluLnRlYW0iOlsidmlldyIsImNyZWF0ZSIsImVkaXQiLCJkZWxldGUiXSwiYWRtaW4uZ3JvdXAiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0IjoidmlldyIsImFkbWluLnByb2plY3QiOiJ2aWV3IiwiYWRtaW4uZmluZ2VycHJpbnQiOiJ2aWV3IiwiYWRtaW4udGltZXNoZWV0LnJlcG9ydCI6InZpZXciLCJhZG1pbi5vdmVydGltZSI6InZpZXciLCJhZG1pbi5vdmVydGltZS5zdW1tYXJ5IjoidmlldyIsImFkbWluLmxlYXZlZm9ybSI6InZpZXciLCJhZG1pbi5sZWF2ZWZvcm0uc3VtbWFyeSI6InZpZXciLCJhZG1pbi5hc3NldCI6InZpZXciLCJuYmYiOjE2OTAxODUyNzcsImV4cCI6MTY5MDI3MTY3NywiaXNzIjoiVFRELUFQSSJ9.6OSQioZovDcvVVeV8QIBB2uFXP3p7u30vvSxAWb3cNQ",
+								"disabled": true
+							},
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Role/Delete/9",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Role",
+								"Delete",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOption",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Role/GetOption",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Role",
+								"GetOption"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Finger Printer",
+			"item": [
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/FingerPrinter/GetListView/2024-01-01/2024-01-20",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"FingerPrinter",
+								"GetListView",
+								"2024-01-01",
+								"2024-01-20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 14,\r\n  \"timeIn\": \"09:00\",\r\n  \"timeOut\": \"16:20\",\r\n  \"note\": \"wfh do con ốm\",\r\n  \"dateSelect\": \"2023-12-26\",\r\n  \"userId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/FingerPrinter/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"FingerPrinter",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": null,\r\n  \"timeIn\": \"09:00\",\r\n  \"timeOut\": \"15:00\",\r\n  \"note\": \"wfh do con ốm\",\r\n  \"dateSelect\": \"2023-11-12\",\r\n  \"userId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/FingerPrinter/Delete/7",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"FingerPrinter",
+								"Delete",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 19662,\r\n    \"userId\": 84,\r\n    \"date\": \"2024-01-12\",\r\n    \"timeIn\": \"08:00\",\r\n    \"timeOut\": \"23:00\",\r\n    \"note\": \"sửa time check in/out\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/FingerPrinter/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"FingerPrinter",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Leave",
+			"item": [
+				{
+					"name": "GetLeaveInformation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Leave/GetLeaveInformation",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"GetLeaveInformation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetRequestListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Leave/GetRequestListView/2023",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"GetRequestListView",
+								"2023"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": null,\r\n  \"reason\": \"demo lần 4\",\r\n  \"startDate\": \"2023-12-20\",\r\n  \"startTime\": \"12:00\",\r\n  \"endDate\": \"2023-12-22\",\r\n  \"endTime\": \"12:00\",\r\n  \"type\": \"Annual\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Leave/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 25,\r\n    \"startDate\": \"2023-12-20T00:00:00\",\r\n    \"startTime\": \"12:00\",\r\n    \"endDate\": \"2023-12-22T00:00:00\",\r\n    \"endTime\": \"13:00\",\r\n    \"reason\": \"demo lần 4\",\r\n    \"type\": \"Annual\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Leave/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Leave/Delete/23",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"Delete",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Leave/Approve/42/true",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"Approve",
+								"42",
+								"true"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHistories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Leave/GetHistories/2023",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"GetHistories",
+								"2023"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStateRemainLeave",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Leave/GetStateRemainLeave",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"GetStateRemainLeave"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Leave/GetListView/2023/12",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"GetListView",
+								"2023",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReport",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Leave/GetReport/2023",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"GetReport",
+								"2023"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ExportReport",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Leave/ExportReport/2023",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Leave",
+								"ExportReport",
+								"2023"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Overtime",
+			"item": [
+				{
+					"name": "GetRequestListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Overtime/GetRequestListView/2024/1",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"GetRequestListView",
+								"2024",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": null,\r\n  \"date\": \"2024-01-17\",\r\n  \"start\": \"01:00\",\r\n  \"end\": \"07:10\",\r\n  \"reason\": \"ot weekday, not leave\",\r\n  \"projectId\": 2,\r\n  \"categoryId\": 54,\r\n  \"objectId\": 95\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Overtime/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDetail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Overtime/GetDetail/2126",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"GetDetail",
+								"2126"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Overtime/Delete/2123",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"Delete",
+								"2123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2126,\r\n    \"date\": \"2024-01-18T00:00:00\",\r\n    \"start\": \"17:40\",\r\n    \"end\": \"23:10\",\r\n    \"projectId\": 2,\r\n    \"categoryId\": 54,\r\n    \"objectId\": 95,\r\n    \"reason\": \"ot weekday, not leave\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Overtime/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Overtime/Approve/2/false",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"Approve",
+								"2",
+								"false"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Overtime/GetListView/2023/12",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"GetListView",
+								"2023",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetReport",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Overtime/GetReport/2024",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"GetReport",
+								"2024"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOvertimeInformation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Overtime/GetOvertimeInformation",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"GetOvertimeInformation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateRule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"Holiday\",\r\n  \"hourFrom\": \"10:00\",\r\n  \"hourTo\": \"19:00\",\r\n  \"multiplier\": 3.9,\r\n  \"description\": \"tes5t\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Overtime/UpdateRule",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Overtime",
+								"UpdateRule"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WFH",
+			"item": [
+				{
+					"name": "GetRequestListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Wfh/GetRequestListView/2024",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Wfh",
+								"GetRequestListView",
+								"2024"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"startTime\": \"2024-04-12\",\r\n  \"endTime\": \"2024-04-12\",\r\n  \"reason\": \"test dev\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Wfh/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Wfh",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"startTime\": \"2024-04-13\",\r\n        \"endTime\": \"2024-04-14\",\r\n        \"reason\": \"test dev\",\r\n        \"id\": 2\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Wfh/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Wfh",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Wfh/GetListView/2024/04",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Wfh",
+								"GetListView",
+								"2024",
+								"04"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Wfh/Approve/13/true",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Wfh",
+								"Approve",
+								"13",
+								"true"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Wfh/Delete/1",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Wfh",
+								"Delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Holiday",
+			"item": [
+				{
+					"name": "GetInfor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Holiday/GetInfor/2023",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Holiday",
+								"GetInfor",
+								"2023"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Holiday/GetListView/2024",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Holiday",
+								"GetListView",
+								"2024"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": null,\r\n  \"name\": \"tết 2025\",\r\n  \"type\": \"Special\",\r\n  \"startDate\": \"2024-12-02\",\r\n  \"endDate\": \"2024-12-03\",\r\n  \"applyFor\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Holiday/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Holiday",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Holiday/Delete/13",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Holiday",
+								"Delete",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Timesheet",
+			"item": [
+				{
+					"name": "Personal - GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Timesheet/GetListView/2024/04",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Timesheet",
+								"GetListView",
+								"2024",
+								"04"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Personal - GetDetail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Timesheet/GetDetail/2024/4/13",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Timesheet",
+								"GetDetail",
+								"2024",
+								"4",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 45124,\r\n    \"projects\": [\r\n        {\r\n            \"projectId\": 2,\r\n            \"tasks\": [\r\n                {\r\n                    \"categoryId\": 54,\r\n                    \"objectId\": 95,\r\n                    \"description\": \"Check input - check result\",\r\n                    \"hours\": \"02:00\"\r\n                },\r\n                {\r\n                    \"categoryId\": 54,\r\n                    \"objectId\": 95,\r\n                    \"description\": \"Design UI - Show Model 3D\",\r\n                    \"hours\": \"03:00\"\r\n                },\r\n                {\r\n                    \"categoryId\": 54,\r\n                    \"objectId\": 95,\r\n                    \"description\": \"Replace image\",\r\n                    \"hours\": \"03:00\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Timesheet/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Timesheet",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Other - GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Timesheet/GetListView/3/2023/12",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Timesheet",
+								"GetListView",
+								"3",
+								"2023",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Other - GetDetail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Timesheet/GetDetail/3/2023/12/14",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Timesheet",
+								"GetDetail",
+								"3",
+								"2023",
+								"12",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lock",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"start\": \"2023-12-12\",\r\n  \"end\": \"2023-12-12\",\r\n  \"isLock\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Timesheet/Lock",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Timesheet",
+								"Lock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDashboardTimesheet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Timesheet/GetDashboardTimesheet",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Timesheet",
+								"GetDashboardTimesheet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDashboardProject",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Timesheet/GetDashboardProject/2023/12",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Timesheet",
+								"GetDashboardProject",
+								"2023",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ExportReport",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Timesheet/ExportReport/2023-11-01/2023-11-30",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Timesheet",
+								"ExportReport",
+								"2023-11-01",
+								"2023-11-30"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Calendar",
+			"item": [
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Calendar/GetListView/3/2024/5",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Calendar",
+								"GetListView",
+								"3",
+								"2024",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDetailDay",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Calendar/GetDetailDay/3/2024/5/3",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Calendar",
+								"GetDetailDay",
+								"3",
+								"2024",
+								"5",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDetail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Calendar/GetDetail/5",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Calendar",
+								"GetDetail",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": null,\r\n  \"title\": \"[Notice] sử dụng máy\",\r\n  \"date\": \"2024-04-26\",\r\n  \"start\": \"13:00\",\r\n  \"end\": \"13:20\",\r\n  \"color\": \"#e3cdcd\",\r\n  \"asset\": \"\",\r\n  \"repeatType\": \"EveryDay\",\r\n  \"content\": \"chạy dự án\",\r\n  \"applyFor\": // []\r\n  [\r\n    {\r\n      \"id\": 1,\r\n      \"type\": \"Team\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Calendar/Create",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Calendar",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "vi",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 6,\r\n    \"referenceCalendarId\": 0,\r\n    \"title\": \"[Notice] sử dụng máy test\",\r\n    \"date\": \"2024-04-26T00:00:00\",\r\n    \"start\": \"13:00\",\r\n    \"end\": \"13:20\",\r\n    \"color\": \"#e3cdcd\",\r\n    \"asset\": \"\",\r\n    \"type\": \"Notice\",\r\n    \"repeatType\": \"EveryDay\",\r\n    \"content\": \"chạy dự án\",\r\n    \"applyFor\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"(T) Research and Development Team\",\r\n            \"type\": \"Team\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/api/Calendar/Update",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Calendar",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Calendar/Delete/1",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Calendar",
+								"Delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDashboardNotices",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTM3Zjg4Yy00NDI5LTRhMmQtOWIzYy00YWYzMTg4NjcxY2MiLCJzdWIiOiI4IiwiZW1haWwiOiJ1c2VyN0BnbWFpbC5jb20iLCJhdWQiOlsicC52Lm5odXQuMSIsIkF1ZGllbmNlIl0sImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjQiLCJUZWFtIjoiMSIsInN0YWZmLmRhc2hib2FyZCI6InZpZXciLCJzdGFmZi5zZXR0aW5nIjoidmlldyIsIm5iZiI6MTY5MjY4OTQwMCwiZXhwIjoxNjkyNzc1ODAwLCJpc3MiOiJUVEQtQVBJIn0.Llg7ZJDrbHZKKmB7TGEMSXks2MErnBRkD27PT-EOpS4",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/api/Calendar/GetDashboardNotices",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Calendar",
+								"GetDashboardNotices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOption",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Calendar/GetOption",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Calendar",
+								"GetOption"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "GetListView",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Notification/GetListView",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Notification",
+								"GetListView"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MarkRead/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Notification/MarkRead/5",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Notification",
+								"MarkRead",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MarkReadAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Notification/MarkReadAll",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Notification",
+								"MarkReadAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Notification/Delete/5",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Notification",
+								"Delete",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/api/Notification/DeleteAll",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"api",
+								"Notification",
+								"DeleteAll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

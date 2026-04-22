@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .email-header {
+            background-color: #0d6efd;
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .email-body {
+            padding: 30px 20px;
+        }
+        .info-section {
+            margin-bottom: 20px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 3px solid #0d6efd;
+            margin-bottom: 15px;
+        }
+        .content-box {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 3px solid #0d6efd;
+        }
+        .email-footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Thông Tin Liên Hệ Mới</h1>
+        </div>
+
+        <div class="email-body">
+            <div class="info-section">
+                <div class="info-label">Họ tên:</div>
+                <div class="info-value">@Model.FullName</div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-label">Số điện thoại:</div>
+                <div class="info-value">@Model.PhoneNumber</div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-label">Email:</div>
+                <div class="info-value">@Model.Email</div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-label">Nội dung:</div>
+                <div class="content-box">
+                    @Model.Content
+                </div>
+            </div>
+        </div>
+
+        <div class="email-footer">
+            <p>Email này được gửi từ hệ thống liên hệ</p>
+            <p>&copy; @DateTime.Now.Year - Tất cả quyền được bảo lưu</p>
+        </div>
+    </div>
+</body>
+</html>

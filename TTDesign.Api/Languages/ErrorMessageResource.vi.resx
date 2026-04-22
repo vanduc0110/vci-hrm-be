@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptInvitationError" xml:space="preserve">
+    <value>Không thể chấp nhận lời mời</value>
+    <comment>[calendar] lỗi khi accept 1 invitation trạng thái khác pending</comment>
+  </data>
+  <data name="AvatarExtension" xml:space="preserve">
+    <value>File input must png/img</value>
+  </data>
+  <data name="AvatarNull" xml:space="preserve">
+    <value>Không tìm thấy file</value>
+  </data>
+  <data name="AvatarOverSize" xml:space="preserve">
+    <value>File vượt quá 5MB</value>
+  </data>
+  <data name="BillHadSyncError" xml:space="preserve">
+    <value>Hóa đơn đã được đồng bộ</value>
+    <comment>[Bill] lỗi khi bill đã sync rồi mà bấm sync lại</comment>
+  </data>
+  <data name="BillItemHadUsing" xml:space="preserve">
+    <value>Bill có item đã được sử dụng</value>
+    <comment>[bill] lỗi khi sửa hoặc xóa bill có chứa item đã sử dụng</comment>
+  </data>
+  <data name="BillProductQuantityError" xml:space="preserve">
+    <value>Số lượng item phải lớn hơn 0</value>
+    <comment>[Bill] lỗi khi tạo bill type InStock mà item có quantity = 0</comment>
+  </data>
+  <data name="CalendarObjectNotFound" xml:space="preserve">
+    <value>Đối tượng không tìm thấy</value>
+    <comment>[Calendar] lỗi khi không tìm thấy object id param truyền lên</comment>
+  </data>
+  <data name="CanNotLogTimesheetInHoliday" xml:space="preserve">
+    <value>Can not log timesheet in holiday</value>
+    <comment>[timesheet] lỗi khi nhập timesheet vào ngày nghỉ/ngày lễ, những ngày này chỉ request OT được thôi</comment>
+  </data>
+  <data name="ChangePasswordFail" xml:space="preserve">
+    <value>Password wrong</value>
+  </data>
+  <data name="ChangeStatusError" xml:space="preserve">
+    <value>Không được thay đổi trạng thái</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Tính năng đang phát triển</value>
+    <comment>[Common] thông báo tính năng đang phát triển/chưa sử dụng được</comment>
+  </data>
+  <data name="DateFutureError" xml:space="preserve">
+    <value>Không được nhập ngày tương lai</value>
+    <comment>lỗi khi nhập time tương lai</comment>
+  </data>
+  <data name="DatePastError" xml:space="preserve">
+    <value>Date End is past of Date Start</value>
+  </data>
+  <data name="DateRangeError" xml:space="preserve">
+    <value>Chỉ được sửa ngày trong khoảng thời gian cho phép (vượt quá trước 2 tháng và tương lai)</value>
+  </data>
+  <data name="DateWrongFormat" xml:space="preserve">
+    <value>DateTime input wrong format (yyyy/MM/dd HH:mm)</value>
+  </data>
+  <data name="DeleteProductHadItem" xml:space="preserve">
+    <value>Không thể xóa product vì đã có item khai báo</value>
+    <comment>[Product] lỗi khi xóa product mà đã có item nằm trong</comment>
+  </data>
+  <data name="DocumentExtension" xml:space="preserve">
+    <value>File input must png/img</value>
+  </data>
+  <data name="DocumentMaximumError" xml:space="preserve">
+    <value>Số lượng tài liệu đã đạt 5 tài liệu</value>
+    <comment>[upload] lỗi khi số lượng file đính kèm project đã đạt 5 file</comment>
+  </data>
+  <data name="DocumentNull" xml:space="preserve">
+    <value>Không tìm thấy file</value>
+  </data>
+  <data name="DocumentOverSize" xml:space="preserve">
+    <value>File vượt quá 5MB</value>
+  </data>
+  <data name="ErrorTenant" xml:space="preserve">
+    <value>Tenent id không khớp</value>
+  </data>
+  <data name="ExistFieldError" xml:space="preserve">
+    <value>{0} không tồn tại</value>
+  </data>
+  <data name="ExistStatusError" xml:space="preserve">
+    <value>Trạng thái 'Current' đã tồn tại</value>
+  </data>
+  <data name="HadExistError" xml:space="preserve">
+    <value>{0} đã tồn tại</value>
+  </data>
+  <data name="HadLocked" xml:space="preserve">
+    <value>{0} đã bị lock</value>
+  </data>
+  <data name="HadUsing" xml:space="preserve">
+    <value>{0} đã được sử dụng</value>
+  </data>
+  <data name="HolidayDateRangeError" xml:space="preserve">
+    <value>Holiday must this year or furture</value>
+  </data>
+  <data name="InputPastDateError" xml:space="preserve">
+    <value>Not allow input past date</value>
+    <comment>[datetime] lỗi khi nhập ngày quá khứ so với thời điểm hiện tại</comment>
+  </data>
+  <data name="InvalidError" xml:space="preserve">
+    <value>Giá trị input sai</value>
+  </data>
+  <data name="LeaveRequestBlockError" xml:space="preserve">
+    <value>Yêu cầu nghỉ {1} phải là bội số của {2}</value>
+  </data>
+  <data name="LeaveRequestTimeWorkError" xml:space="preserve">
+    <value>Thời gian nghỉ phải trong giờ hành chính</value>
+  </data>
+  <data name="LoginEmailInactive" xml:space="preserve">
+    <value>Tài khoản đã bị khóa</value>
+    <comment>[login] lỗi khi user inactive</comment>
+  </data>
+  <data name="LoginEmailNotFound" xml:space="preserve">
+    <value>Email không tồn tại</value>
+    <comment>[login] lỗi khi email ko tìm thấy</comment>
+  </data>
+  <data name="LoginWrongPassword" xml:space="preserve">
+    <value>Password không chính xác</value>
+    <comment>[login] lỗi khi nhập sai password</comment>
+  </data>
+  <data name="MaximumPeriodLeaveError" xml:space="preserve">
+    <value>Request nghỉ {1} phải nhỏ hơn {2} {3}</value>
+  </data>
+  <data name="MaxLengthError" xml:space="preserve">
+    <value>Chiều dài tối đa của {0} là {1} ký tự</value>
+  </data>
+  <data name="MinimumPeriodCalendarError" xml:space="preserve">
+    <value>Calendar phải lớn hơn 15'</value>
+    <comment>[calendar] lỗi khi tạo/sửa request calendar lớn hơn time tối đa theo type</comment>
+  </data>
+  <data name="MinimumPeriodLeaveError" xml:space="preserve">
+    <value>Request nghỉ {1} phải lớn hơn {2} {3}</value>
+  </data>
+  <data name="MinimumPeriodOvertimeError" xml:space="preserve">
+    <value>Yêu cầu OT tối thiểu 15 phút</value>
+  </data>
+  <data name="MinimumPeriodWfhError" xml:space="preserve">
+    <value>Yêu cầu WFH tối thiểu 4 giờ</value>
+  </data>
+  <data name="Nbf" xml:space="preserve">
+    <value>Thời gian có hiệu lực không tìm thấy</value>
+  </data>
+  <data name="NumberInputError" xml:space="preserve">
+    <value>Số nhập phải là số dương</value>
+    <comment>[input] lỗi khi nhập giá trị 0 và âm</comment>
+  </data>
+  <data name="PMNotFound" xml:space="preserve">
+    <value>PM phải nằm trong 1 Group</value>
+  </data>
+  <data name="ProductAvailableError" xml:space="preserve">
+    <value>Không thể sửa Product trạng thái Unavailable</value>
+    <comment>[Product] lỗi khi cố gắng sửa Product hoặc Product Item trong khi status product ko phải là available</comment>
+  </data>
+  <data name="ProductChangeStatusError" xml:space="preserve">
+    <value>Không thể chuyển trạng thái Unavailable khi còn item đã sử dụng được</value>
+    <comment>[Product] lỗi khi đổi status thành Unavailable mà vẫn còn item còn sử dụng trong đó</comment>
+  </data>
+  <data name="ProductItemOutStock" xml:space="preserve">
+    <value>Không thể sửa Product Item trạng thái OutStock</value>
+    <comment>[Product] lỗi khi cố gắng sửa Product Item trạng thái OutStock</comment>
+  </data>
+  <data name="ProductTypeQuantityError" xml:space="preserve">
+    <value>{0} chỉ được lớn 1 khi quản lý theo mã tài sản</value>
+  </data>
+  <data name="RequiredError" xml:space="preserve">
+    <value>{0} yêu cầu nhập</value>
+  </data>
+  <data name="SetUserTeam" xml:space="preserve">
+    <value>User chỉ thuộc 1 team</value>
+  </data>
+  <data name="SwapMessage" xml:space="preserve">
+    <value>hoán đổi cho {0}</value>
+    <comment>[SwapDay] message hiển thị cho ngày hoán đổi trên timesheet</comment>
+  </data>
+  <data name="TaskHourInputOverError" xml:space="preserve">
+    <value>Tổng số giờ vượt quá số giờ làm việc</value>
+  </data>
+  <data name="TeamHadUserInclude" xml:space="preserve">
+    <value>Team had member</value>
+  </data>
+  <data name="TimeMustWeekday" xml:space="preserve">
+    <value>Hãy chọn ngày làm việc</value>
+    <comment>[SwapDay] gợi ý nhập ngày được hoán đổi là ngày làm việc</comment>
+  </data>
+  <data name="TimeMustWeekend" xml:space="preserve">
+    <value>Hãy chọn ngày cuối tuần</value>
+    <comment>[SwapDay] gợi ý nhập ngày được hoán đổi là ngày cuối tuần</comment>
+  </data>
+  <data name="UniquedError" xml:space="preserve">
+    <value>{0} đã tồn tại</value>
+  </data>
+  <data name="UpdateBillPendingError" xml:space="preserve">
+    <value>Không thể sửa Bill mà có Item đã được phân bổ sử dụng</value>
+    <comment>[Bill] lỗi khi update bill đã ở trạng thái sync và có item được sử dụng rồi</comment>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Có thành viên không thể tìm thấy</value>
+  </data>
+  <data name="UserNotPermission" xml:space="preserve">
+    <value>User không có quyền</value>
+  </data>
+  <data name="UserNotWorkingProject" xml:space="preserve">
+    <value>User not work in project</value>
+  </data>
+  <data name="UserPositionError" xml:space="preserve">
+    <value>Vị trí không được cao hơn vị trí của user đăng nhập </value>
+    <comment>[User] lỗi khi tạo/sửa user có position lớn hơn position của user login</comment>
+  </data>
+  <data name="WorkTimeOverError" xml:space="preserve">
+    <value>Công việc khai báo quá 8 tiếng làm việc</value>
+  </data>
+  <data name="Exp" xml:space="preserve">
+    <value>Thời gian hết hạn không tìm thấy</value>
+  </data>
+  <data name="VerifiedTokenError" xml:space="preserve">
+    <value>Token bị hết hạn</value>
+  </data>
+  <data name="LeaveSelfWeddingError" xml:space="preserve">
+    <value>Bạn đã có yêu cầu nghỉ {1} trong vòng 30 ngày qua</value>
+  </data>
+  <data name="UserTaskStatus" xml:space="preserve">
+    <value>Không thể tạo task có trạng thái current</value>
+  </data>
+  <data name="ErrorDeleteTask" xml:space="preserve">
+    <value>Không thể xóa task ở trạng thái 'Current'</value>
+  </data>
+  <data name="InvalidFieldType" xml:space="preserve">
+    <value>Kiểu dữ liệu của trường {0} không hợp lệ</value>
+  </data>
+  <data name="ErrorAllocateAssetStatus" xml:space="preserve">
+    <value>Trạng thái tài sản không được cấp phát</value>
+  </data>
+</root>

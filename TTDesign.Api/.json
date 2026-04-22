@@ -1,0 +1,11 @@
+{
+  "Urls": "http://0.0.0.0:5000",
+  "AppConfig": {
+    "ClientUrl": "https://hrm.vcijsc.com",
+    "BaseUrl": "https://api-hrm.vcijsc.com",
+    "LogoPath": "https://api-hrm.vcijsc.com/database/thumbnails/VCILogo.png"
+  },
+  "ConnectionStrings": {
+    "VCI_DB": "Server=localhost;port=3306;Database=hrm-local-test1;Uid=root;Pwd=Admin123@;Convert Zero Datetime=True"
+  }
+}

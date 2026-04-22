@@ -1,0 +1,257 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>TTDesign.API</RootNamespace>
+		<EnableDefaultContentItems>false</EnableDefaultContentItems>
+		<!-- Generate XML document from code comments (aka documentation comments). -->
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<!-- Do not warn about the constructs that did not have comments (when the GenerateDocumentationFile compiler option is ebabled). -->
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<EmbeddedResourceUseDependentUponConvention>false</EmbeddedResourceUseDependentUponConvention>
+		<UserSecretsId>1fec3f47-5439-44ec-9c94-486bfb115276</UserSecretsId>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+		<PackageReference Include="ClosedXML" Version="0.97.0" />
+		<PackageReference Include="CsvHelper" Version="33.1.0" />
+		<PackageReference Include="DocumentFormat.OpenXml" Version="2.18.0" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+		<PackageReference Include="Google.Api.CommonProtos" Version="2.6.0" />
+		<PackageReference Include="Google.Api.Gax" Version="4.1.1" />
+		<PackageReference Include="Google.Api.Gax.Grpc" Version="4.1.1" />
+		<PackageReference Include="Google.Api.Gax.Rest" Version="4.1.1" />
+		<PackageReference Include="Google.Apis" Version="1.57.0" />
+		<PackageReference Include="Google.Apis.Discovery.v1" Version="1.57.0" />
+		<PackageReference Include="Google.Apis.HangoutsChat.v1" Version="1.57.0.2813" />
+		<PackageReference Include="Google.Apis.Oauth2.v2" Version="1.57.0.1869" />
+		<PackageReference Include="Google.Apis.Pubsub.v1" Version="1.57.0.2803" />
+		<PackageReference Include="Google.Apis.Sheets.v4" Version="1.57.0.2826" />
+		<PackageReference Include="MailKit" Version="4.14.1" />
+		<PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="8.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		  <PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		  <PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.4" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
+		<PackageReference Include="NETCore.MailKit" Version="2.1.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+		<PackageReference Include="PasswordGenerator" Version="2.1.0" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+		<PackageReference Include="RazorLight" Version="2.3.1" />
+		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.2.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+
+		<Content Include="wwwroot\**\*">
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="Domain\Services\Communication\**" />
+		<Compile Remove="temporary\**" />
+		<EmbeddedResource Remove="Domain\Services\Communication\**" />
+		<EmbeddedResource Remove="temporary\**" />
+		<None Remove="Domain\Services\Communication\**" />
+		<None Remove="temporary\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="Controllers\FileController.cs" />
+		<Compile Remove="Controllers\LeaveformController.cs" />
+		<Compile Remove="Controllers\LeaveTypeController.cs" />
+		<Compile Remove="Controllers\OvertimeTypeController.cs" />
+		<Compile Remove="Controllers\PublicHolidayOfYearController.cs" />
+		<Compile Remove="Controllers\ReportsController.cs" />
+		<Compile Remove="Controllers\TeamProjectController.cs" />
+		<Compile Remove="Controllers\TeamUserController.cs" />
+		<Compile Remove="Controllers\TimesheetCategoryController.cs" />
+		<Compile Remove="Controllers\TimesheetObjectController.cs" />
+		<Compile Remove="Controllers\TimesheetProjectController.cs" />
+		<Compile Remove="Controllers\TimesheetTaskController.cs" />
+		<Compile Remove="Controllers\UserSettingController.cs" />
+		<Compile Remove="Domain\Services\ILeaveformDetailService.cs" />
+		<Compile Remove="Domain\Services\ILeaveformService.cs" />
+		<Compile Remove="Domain\Services\ILeaveTypeService.cs" />
+		<Compile Remove="Domain\Services\IMailService.cs" />
+		<Compile Remove="Domain\Services\IOvertimeTypeService.cs" />
+		<Compile Remove="Domain\Services\IPublicHolidayOfYearService.cs" />
+		<Compile Remove="Domain\Services\IReportsService.cs" />
+		<Compile Remove="Domain\Services\ITeamProjectService.cs" />
+		<Compile Remove="Domain\Services\ITeamUserService.cs" />
+		<Compile Remove="Domain\Services\ITimesheetCategoryService.cs" />
+		<Compile Remove="Domain\Services\ITimesheetObjectService.cs" />
+		<Compile Remove="Domain\Services\ITimesheetProjectService.cs" />
+		<Compile Remove="Domain\Services\ITimesheetTaskService.cs" />
+		<Compile Remove="Extensions\ClosedXmlUtils.cs" />
+		<Compile Remove="Extensions\GoogleSheetReport.cs" />
+		<Compile Remove="Extensions\LeaveDaysUltils.cs" />
+		<Compile Remove="Extensions\MiddlewareExtensions.cs" />
+		<Compile Remove="Extensions\OpenXmlUtils.cs" />
+		<Compile Remove="Extensions\ReportWorkingHoursSummaryUtils.cs" />
+		<Compile Remove="Extensions\SecurityExtensions.cs" />
+		<Compile Remove="Extensions\TimeSheetUltils.cs" />
+		<Compile Remove="Hubs\StatusHub.cs" />
+		<Compile Remove="Hubs\UserConnection.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="TemplateReportDetailByTeamAndDateRange.xlsx" />
+		<None Remove="TemplateSummaryAsPerson.xlsx" />
+		<None Remove="TemplateSummaryOfTeam.xlsx" />
+		<None Remove="TemplateSummaryOfTeamAndProject.xlsx" />
+		<None Remove="TemplateSummaryOfTimeSheet.xlsx" />
+		<None Remove="Upload\Images\0.png" />
+		<None Remove="wwwroot\Mail\Temp.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="TemplateReportDetailByTeamAndDateRange.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="TemplateSummaryAsPerson.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="TemplateSummaryOfTeam.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="TemplateSummaryOfTeamAndProject.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="TemplateSummaryOfTimeSheet.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Upload\Images\0.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Upload\Documents\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Languages\DisplayNameResource.vi.Designer.cs">
+			<DependentUpon>DisplayNameResource.vi.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Languages\ErrorMessageResource.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>ErrorMessageResource.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Languages\ErrorMessageResource.vi.Designer.cs">
+			<DependentUpon>ErrorMessageResource.vi.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Languages\DisplayNameResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>DisplayNameResource.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Languages\Resources\SharedResource.vi.Designer.cs">
+			<DependentUpon>SharedResource.vi.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Languages\Resources\SharedResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>SharedResource.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Update="wwwroot\Excel\AnalysisTimesheet.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\Excel\LeaveDayStaffs.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\Excel\SummaryOfTimesheet.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\Excel\SummaryOfTimesheetByTeam.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\Mail\Temp.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Languages\DisplayNameResource.vi.resx">
+			<LastGenOutput>DisplayNameResource.vi.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Languages\ErrorMessageResource.vi.resx">
+			<LastGenOutput>ErrorMessageResource.vi.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Languages\ErrorMessageResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ErrorMessageResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Languages\DisplayNameResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>DisplayNameResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Languages\Resources\SharedResource.vi.resx">
+			<LastGenOutput>SharedResource.vi.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Languages\Resources\SharedResource.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>SharedResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="appsettings.Development.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update=".json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="ttdapp.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="MailTemplate\*.cshtml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>

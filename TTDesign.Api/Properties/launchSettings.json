@@ -1,0 +1,54 @@
+{
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "TTD_Api.MySQL.Dev": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "DOTTNET_ENVIRONMENT": "Development",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7002;http://localhost:5002;"
+    },
+    "TTD_Api.MySQL.Prod": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "DOTTNET_ENVIRONMENT": "Production",
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "applicationUrl": "https://0.0.0.0:7000;http://0.0.0.0:5000;",
+      "dotnetRunMessages": true
+    },
+    "TTD_Api.MySQL.Stag": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "DOTTNET_ENVIRONMENT": "Staging",
+        "ASPNETCORE_ENVIRONMENT": "Staging"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://0.0.0.0:7000;http://0.0.0.0:5000;"
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:1152",
+      "sslPort": 5500
+    }
+  }
+}

@@ -1,0 +1,10 @@
+TTDesign.BiometricDeviceConsole/bin/Release/
+TTDesign.BiometricDeviceConsole/bin/Debug/
+TTDesign.BiometricDeviceConsole/obj/Release/
+TTDesign.BiometricDeviceConsole/obj/Debug/
+TTDesign.BiometricDeviceConsole/publish/
+TTDesign.Api/bin/Release/
+TTDesign.Api/bin/Debug/
+.vs/
+*.log
+.codegpt

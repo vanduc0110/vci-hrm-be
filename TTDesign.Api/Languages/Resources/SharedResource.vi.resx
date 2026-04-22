@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CATEGORY_HAS_USING" xml:space="preserve">
+    <value>Category đã sử dụng</value>
+  </data>
+  <data name="CATEGORY_NAME_EXIST" xml:space="preserve">
+    <value>Category đã tồn tại</value>
+  </data>
+  <data name="CATEGORY_NOT_FOUND" xml:space="preserve">
+    <value>Category không tồn tại</value>
+  </data>
+  <data name="CREATE_TEAM_SUCCESS" xml:space="preserve">
+    <value>Tạo thành công</value>
+  </data>
+  <data name="CREATE_USER_SUCCESS" xml:space="preserve">
+    <value>Tạo thành công</value>
+  </data>
+  <data name="DATA_INVALID" xml:space="preserve">
+    <value>Dữ liệu không hợp lệ</value>
+  </data>
+  <data name="DATA_REQUIRE" xml:space="preserve">
+    <value>Trường thông tin yêu cầu phải nhập!</value>
+  </data>
+  <data name="DATE_END_PAST_START" xml:space="preserve">
+    <value>Date End nhỏ hơn Date Start</value>
+  </data>
+  <data name="DATE_INPUT_WRONG_FORMAT" xml:space="preserve">
+    <value>Giá trị thời gian nên nhập theo format yyyy/MM/dd HH:mm</value>
+  </data>
+  <data name="DATE_RANGE_ERROR" xml:space="preserve">
+    <value>Chỉ được sửa ngày trong khoảng thời gian cho phép</value>
+  </data>
+  <data name="EMAIL_HAD_EXIST" xml:space="preserve">
+    <value>Email đã tồn tại</value>
+  </data>
+  <data name="EMAIL_NOT_FOUND" xml:space="preserve">
+    <value>Email không tìm thấy</value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value>Đã có lỗi xảy ra, vui lòng thử lại!</value>
+  </data>
+  <data name="FILE_AVATAR_EXTENSION" xml:space="preserve">
+    <value>File tải lên phải là png/img</value>
+  </data>
+  <data name="FILE_AVATAR_OVER_SIZE" xml:space="preserve">
+    <value>File vượt quá kích thước 5MB</value>
+  </data>
+  <data name="FILE_NULL" xml:space="preserve">
+    <value>Hãy chọn file</value>
+  </data>
+  <data name="FINGERPRINTER_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy thông tin</value>
+  </data>
+  <data name="FINGER_ID_DUPLICATE" xml:space="preserve">
+    <value>Finger ID đã tồn tại</value>
+  </data>
+  <data name="FINGER_PRINTER_HAD_EXIST" xml:space="preserve">
+    <value>Finger Printer had exist</value>
+  </data>
+  <data name="FINGER_PRINTER_HAD_LOCK" xml:space="preserve">
+    <value>Date had lock</value>
+  </data>
+  <data name="GROUP_CODE_EXIST" xml:space="preserve">
+    <value>GroupCode đã tồn tại</value>
+  </data>
+  <data name="GROUP_NOT_FOUND" xml:space="preserve">
+    <value>Group không tồn tại</value>
+  </data>
+  <data name="HAD_USER_BELONG_TEAM" xml:space="preserve">
+    <value>Vẫn còn user thuộc team này</value>
+  </data>
+  <data name="HAD_USER_USING_ROLE" xml:space="preserve">
+    <value>Vẫn còn user sử dụng role này</value>
+  </data>
+  <data name="HOLIDAY_NOT_FOUND" xml:space="preserve">
+    <value>Ngày nghỉ không tồn tại</value>
+  </data>
+  <data name="INVALID_ERROR" xml:space="preserve">
+    <value>Giá trị truyền vào không hợp lệ</value>
+  </data>
+  <data name="LEAST_COMMON_MULTIPLE_HOLIDAY_WRONG" xml:space="preserve">
+    <value>Bội số chung nhỏ nhất của nghỉ lễ là 4 giờ</value>
+  </data>
+  <data name="OBJECT_HAS_USING" xml:space="preserve">
+    <value>Object đã sử dụng</value>
+  </data>
+  <data name="OBJECT_NAME_EXIST" xml:space="preserve">
+    <value>Tên object đã tồn tại</value>
+  </data>
+  <data name="OBJECT_NOT_FOUND" xml:space="preserve">
+    <value>Object không tồn tại</value>
+  </data>
+  <data name="OVERTIME_NOT_FOUND" xml:space="preserve">
+    <value>Request overtime không tồn tại</value>
+  </data>
+  <data name="OVERTIME_REQUEST_DUPLICATE" xml:space="preserve">
+    <value>Request OT bị trùng</value>
+  </data>
+  <data name="PASSWORD_INPUT_WRONG" xml:space="preserve">
+    <value>Password không phù hợp</value>
+  </data>
+  <data name="POSITION_INPUT_WRONG" xml:space="preserve">
+    <value>Position input wrong!</value>
+  </data>
+  <data name="PROJECT_HAD_USING" xml:space="preserve">
+    <value>Project had using</value>
+  </data>
+  <data name="PROJECT_NOT_FOUND" xml:space="preserve">
+    <value>Project không tồn tại</value>
+  </data>
+  <data name="ROLE_HAS_USING" xml:space="preserve">
+    <value>Role has using</value>
+  </data>
+  <data name="ROLE_INPUT_WRONG" xml:space="preserve">
+    <value>Role nhập không chính xác</value>
+  </data>
+  <data name="ROLE_NAME_EXIST" xml:space="preserve">
+    <value>Role name đã tồn tại</value>
+  </data>
+  <data name="ROLE_NOT_FOUND" xml:space="preserve">
+    <value>Role không tồn tại</value>
+  </data>
+  <data name="STAFF_ID_DUPLICATE" xml:space="preserve">
+    <value>Staff ID đã tồn tại</value>
+  </data>
+  <data name="STATE_NOT_FOUND" xml:space="preserve">
+    <value>State không tồn tại</value>
+  </data>
+  <data name="TEAM_CODE_EXIST" xml:space="preserve">
+    <value>TeamCode đã tồn tại!</value>
+  </data>
+  <data name="TEAM_HAS_LEADER" xml:space="preserve">
+    <value>Team đã có leader</value>
+  </data>
+  <data name="TEAM_NOT_FOUND" xml:space="preserve">
+    <value>Team không tồn tại!</value>
+  </data>
+  <data name="UPDATE_TEAM_SUCCESS" xml:space="preserve">
+    <value>Cập nhật thành công</value>
+  </data>
+  <data name="UPDATE_USER_SUCCESS" xml:space="preserve">
+    <value>Cập nhật thành công</value>
+  </data>
+  <data name="UPLOAD_AVATAR_SUCCESS" xml:space="preserve">
+    <value>Tải ảnh lên thành công</value>
+  </data>
+  <data name="USER_INACTIVE" xml:space="preserve">
+    <value>User ở trang thái không hoạt động</value>
+  </data>
+  <data name="USER_INVALID" xml:space="preserve">
+    <value>Thông tin user sai</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy user</value>
+  </data>
+  <data name="USER_NOT_HANDLE" xml:space="preserve">
+    <value>User không được thực hiện hành động này</value>
+  </data>
+  <data name="USER_NOT_PERMISSION" xml:space="preserve">
+    <value>User không có quyền</value>
+  </data>
+  <data name="USER_NOT_WORKING_PROJECT" xml:space="preserve">
+    <value>User không thuộc project</value>
+  </data>
+  <data name="USER_PASSWORD_NOT_EQUAL" xml:space="preserve">
+    <value>Your password is not correct so you can not make your change. Please check your password again!</value>
+  </data>
+  <data name="USER_STATUS_INPUT_WRONG" xml:space="preserve">
+    <value>Status input wrong!</value>
+  </data>
+  <data name="USER_TEAM_ROLE_INPUT_WRONG" xml:space="preserve">
+    <value>Team role input wrong!</value>
+  </data>
+</root>
