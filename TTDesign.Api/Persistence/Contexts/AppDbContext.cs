@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using TTDesign.API.Domain.Models;
 
 namespace TTDesign.API.Persistence.Contexts
@@ -83,6 +84,26 @@ namespace TTDesign.API.Persistence.Contexts
           entityType.SetTableName( tableName.Substring( 6 ) );
         }
       }
+      // thêm để sửa lỗi datetime
+      var dateTimeConverter = new Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<DateTime, DateTime>(
+        v => v.Kind == DateTimeKind.Utc ? v : v.ToUniversalTime(),
+        v => DateTime.SpecifyKind( v, DateTimeKind.Utc ) );
+
+      var nullableDateTimeConverter = new Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<DateTime?, DateTime?>(
+          v => !v.HasValue ? v : ( v.Value.Kind == DateTimeKind.Utc ? v.Value : v.Value.ToUniversalTime() ),
+          v => v.HasValue ? DateTime.SpecifyKind( v.Value, DateTimeKind.Utc ) : v );
+
+      foreach ( var entityType in modelBuilder.Model.GetEntityTypes() ) {
+        foreach ( var property in entityType.GetProperties() ) {
+          if ( property.ClrType == typeof( DateTime ) ) {
+            property.SetValueConverter( dateTimeConverter );
+          }
+          else if ( property.ClrType == typeof( DateTime? ) ) {
+            property.SetValueConverter( nullableDateTimeConverter );
+          }
+        }
+      }
+      //
 
       modelBuilder.Entity<FingerDataMachine>( entity =>
       {
@@ -1392,6 +1413,63 @@ namespace TTDesign.API.Persistence.Contexts
 
       OnModelCreatingPartial( modelBuilder );
 
+    }
+
+    public override int SaveChanges()
+    {
+      NormalizeDateTimesToUtc();
+      return base.SaveChanges();
+    }
+
+    public override int SaveChanges( bool acceptAllChangesOnSuccess )
+    {
+      NormalizeDateTimesToUtc();
+      return base.SaveChanges( acceptAllChangesOnSuccess );
+    }
+
+    public override Task<int> SaveChangesAsync( CancellationToken cancellationToken = default )
+    {
+      NormalizeDateTimesToUtc();
+      return base.SaveChangesAsync( cancellationToken );
+    }
+
+    public override Task<int> SaveChangesAsync( bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default )
+    {
+      NormalizeDateTimesToUtc();
+      return base.SaveChangesAsync( acceptAllChangesOnSuccess, cancellationToken );
+    }
+
+    private void NormalizeDateTimesToUtc()
+    {
+      foreach ( var entry in ChangeTracker.Entries() ) {
+        if ( entry.State != EntityState.Added && entry.State != EntityState.Modified ) {
+          continue;
+        }
+
+        var properties = entry.Entity.GetType().GetProperties( BindingFlags.Instance | BindingFlags.Public );
+        foreach ( var property in properties ) {
+          if ( property.PropertyType == typeof( DateTime ) ) {
+            var value = ( DateTime ) property.GetValue( entry.Entity )!;
+            property.SetValue( entry.Entity, EnsureUtc( value ) );
+          }
+          else if ( property.PropertyType == typeof( DateTime? ) ) {
+            var value = ( DateTime? ) property.GetValue( entry.Entity );
+            if ( value.HasValue ) {
+              property.SetValue( entry.Entity, EnsureUtc( value.Value ) );
+            }
+          }
+        }
+      }
+    }
+
+    private static DateTime EnsureUtc( DateTime value )
+    {
+      return value.Kind switch
+      {
+        DateTimeKind.Utc => value,
+        DateTimeKind.Local => value.ToUniversalTime(),
+        _ => DateTime.SpecifyKind( value, DateTimeKind.Utc )
+      };
     }
 
     partial void OnModelCreatingPartial( ModelBuilder modelBuilder );

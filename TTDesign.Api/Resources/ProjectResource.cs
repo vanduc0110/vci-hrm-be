@@ -126,7 +126,10 @@ namespace TTDesign.API.Resources
         //if ( !dbContext.Users.Any( t => t.Id == Manager && t.Position == ( int ) Enums.UserPosition.PM ) ) {
         //  results.Add( new ValidationResult( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.ProjectManager ), new [] { nameof( Manager ) } ) );
         //}
-        if ( FinishedDate != null && FinishedDate < StartedDate ) {
+        // Treat default/min date as "not provided" and compare by date only.
+        if ( FinishedDate.HasValue
+          && FinishedDate.Value > DateTime.MinValue
+          && FinishedDate.Value.Date < StartedDate.Date ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.DatePastError, DisplayNameResource.ProjectStart ), new [] { nameof( StartedDate ) } ) );
         }
         if ( MemberIds == null || MemberIds.Count == 0 ) {

@@ -445,7 +445,8 @@ namespace TTDesign.API.Services
       }
       // create system request next time
       if ( DateTime.UtcNow.Day >= DateTime.UtcNow.AddDays( -DateTime.UtcNow.Date.Day - 7 ).AddMonths( 1 ).Day ) {
-        var nextMonth = new DateTime( DateTime.UtcNow.Year, DateTime.UtcNow.Month, 16 ).AddMonths( 1 );
+        // Keep UTC kind to avoid Npgsql timestamptz parameter errors.
+        var nextMonth = DateTime.SpecifyKind( new DateTime( DateTime.UtcNow.Year, DateTime.UtcNow.Month, 16 ), DateTimeKind.Utc ).AddMonths( 1 );
         if ( !await _context.SystemRequests.AnyAsync( o => o.Type == ( int ) Enums.SystemRequestType.DefineAnnualLeaveNextMonth && o.Date == nextMonth ) ) {
           await _context.SystemRequests.AddAsync( new SystemRequest
           {

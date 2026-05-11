@@ -77,16 +77,16 @@ namespace TTDesign.API.Services
         TimesheetId = old.TimesheetId,
         DateIn = old.DateIn,
         DateOut = old.DateOut,
-        DateInUpdate = resource.DateTimeIn,
-        DateOutUpdate = resource.DateTimeOut,
+        DateInUpdate = resource.DateTimeIn.ToUniversalTime(),
+        DateOutUpdate = resource.DateTimeOut.ToUniversalTime(),
         UpdatedBy = user!.FullName,
         CreatedDate = DateTime.UtcNow,
         CreatedBy = editor
       } );
 
       var dateWorkTime = Common.TotalTimeWorkExcludeWeekend( resource.DateTimeIn, resource.DateTimeOut, "hour" );
-      old!.DateIn = resource.DateTimeIn;
-      old.DateOut = resource.DateTimeOut;
+      old!.DateIn = resource.DateTimeIn.ToUniversalTime();
+      old.DateOut = resource.DateTimeOut.ToUniversalTime();
       old.Note = resource.Note;
       old.ModifiedBy = editor;
       old.HourTotal = dateWorkTime.Sum( t => t.Hours );
@@ -96,8 +96,8 @@ namespace TTDesign.API.Services
       if ( ts != null && ts.SwapDay != null ) {
         var tsSwap = await _fingerPrinterRepository.GetByConditionNoTrack( f => f.Timesheet.Date == ts.SwapDay && f.Timesheet.UserId == ts.UserId );
         var swapDayRefer = await _swapDayReferRepository.GetByConditionNoTrack( s => s.FingerPrinterId == tsSwap!.Id );
-        swapDayRefer!.DateIn = resource.DateTimeIn;
-        swapDayRefer.DateOut = resource.DateTimeOut;
+        swapDayRefer!.DateIn = resource.DateTimeIn.ToUniversalTime();
+        swapDayRefer.DateOut = resource.DateTimeOut.ToUniversalTime();
         swapDayRefer.HourTotal = dateWorkTime.Sum( t => t.Hours );
         _swapDayReferRepository.Update( swapDayRefer );
       }
@@ -112,13 +112,13 @@ namespace TTDesign.API.Services
       {
         UserId = user!.Id,
         User = user,
-        Date = resource.DateTimeIn.Date,
+        Date = DateTime.SpecifyKind( resource.DateTimeIn.Date, DateTimeKind.Utc ),
         CreatedBy = creator,
         ModifiedBy = creator,
         FingerPrinter = new FingerPrinter()
         {
-          DateIn = resource.DateTimeIn,
-          DateOut = resource.DateTimeOut,
+          DateIn = resource.DateTimeIn.ToUniversalTime(),
+          DateOut = resource.DateTimeOut.ToUniversalTime(),
           Note = resource.Note,
           HourTotal = dateWorkTime.Sum( t => t.Hours ),
           CreatedBy = creator,

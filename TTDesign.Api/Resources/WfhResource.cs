@@ -67,8 +67,8 @@ namespace TTDesign.API.Resources
         results.Add( new ValidationResult( string.Format( ErrorMessageResource.UserNotPermission, DisplayNameResource.Wfh ), new [] { Enums.ERROR_TEXT } ) );
         return results;
       }
-      var dateValidMinimum = DateTime.Now.Date.AddDays( 1 - DateTime.Now.Day ).AddMonths( -2 ); // ngày mồng 1 của tháng trước, hôm nay 15/06/23 thì đây là 01/05/23
-      var dateValidMaximum = DateTime.Now.Date.AddDays( 1 - DateTime.Now.Day ).AddMonths( 2 ); // ngày mồng 1 của 2 tháng sau, hôm nay 15/06/23 thì đây là 01/08/23
+      var dateValidMinimum = DateTime.UtcNow.Date.AddDays( 1 - DateTime.UtcNow.Day ).AddMonths( -2 ); // ngày mồng 1 của tháng trước, hôm nay 15/06/23 thì đây là 01/05/23
+      var dateValidMaximum = DateTime.UtcNow.Date.AddDays( 1 - DateTime.UtcNow.Day ).AddMonths( 2 ); // ngày mồng 1 của 2 tháng sau, hôm nay 15/06/23 thì đây là 01/08/23
       if ( StartTime < dateValidMinimum || StartTime >= dateValidMaximum ) {
         results.Add( new ValidationResult( string.Format( ErrorMessageResource.DateRangeError, DisplayNameResource.WfhStart ), new [] { nameof( StartTime ) } ) );
       }

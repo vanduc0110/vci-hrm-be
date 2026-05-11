@@ -25,7 +25,7 @@
     /// <summary>
     /// 0 Pending, 1 Active, 2 End
     /// </summary>
-    public bool Status { get; set; }
+    public int Status { get; set; }
     /// <summary>
     /// dự án đóng/mở?
     /// </summary>

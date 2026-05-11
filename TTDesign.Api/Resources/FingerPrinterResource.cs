@@ -75,7 +75,7 @@ namespace TTDesign.API.Resources
         Note = Common.RemoveMultiBlank( Note );
       }
       if ( DateSelect is not null ) {
-        DateSelect = ( ( DateTime ) DateSelect ).Date;
+        DateSelect = DateTime.SpecifyKind( ( ( DateTime ) DateSelect ).Date, DateTimeKind.Utc );
       }
       var results = new List<ValidationResult>();
       var dbContext = validationContext.GetService( typeof( AppDbContext ) ) as AppDbContext;

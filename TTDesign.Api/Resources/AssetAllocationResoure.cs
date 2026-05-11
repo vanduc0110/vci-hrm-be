@@ -44,7 +44,7 @@ namespace TTDesign.API.Resources
         if ( !dbContext.Assets.Any( t => t.Id == AssetId ) ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.Asset ), new [] { nameof( AssetId ) } ) );
         }
-        if ( DisposeDate is null || DisposeDate > DateTime.Now ) {
+        if ( DisposeDate is null || DisposeDate > DateTime.UtcNow ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.InvalidError, DisplayNameResource.DisposeDate ), new [] { nameof( DisposeDate ) } ) );
         }
       }
@@ -68,7 +68,7 @@ namespace TTDesign.API.Resources
         if ( !dbContext.Assets.Any( t => t.Id == AssetId ) ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.Asset ), new [] { nameof( AssetId ) } ) );
         }
-        if ( DestroyDate is null || DestroyDate > DateTime.Now ) {
+        if ( DestroyDate is null || DestroyDate > DateTime.UtcNow ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.InvalidError, DisplayNameResource.DestroyDate ), new [] { nameof( DestroyDate ) } ) );
         }
       }
@@ -100,7 +100,7 @@ namespace TTDesign.API.Resources
         if ( !dbContext.Users.Any( t => t.Id == UserId ) ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.User ), new [] { nameof( UserId ) } ) );
         }
-        if ( AllocationDate is null || AllocationDate > DateTime.Now ) {
+        if ( AllocationDate is null || AllocationDate > DateTime.UtcNow ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.InvalidError, DisplayNameResource.AllocationDate ), new [] { nameof( AllocationDate ) } ) );
         }
       }
@@ -131,7 +131,7 @@ namespace TTDesign.API.Resources
         if ( !dbContext.Users.Any( t => t.Id == UserId ) ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.User ), new [] { nameof( UserId ) } ) );
         }
-        if ( AllocationDate is null || AllocationDate > DateTime.Now ) {
+        if ( AllocationDate is null || AllocationDate > DateTime.UtcNow ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.InvalidError, DisplayNameResource.AllocationDate ), new [] { nameof( AllocationDate ) } ) );
         }
       }
@@ -159,7 +159,7 @@ namespace TTDesign.API.Resources
         if ( !dbContext.Users.Any( t => t.Id == UserId ) ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.User ), new [] { nameof( UserId ) } ) );
         }
-        if ( TransferDate is null || TransferDate > DateTime.Now ) {
+        if ( TransferDate is null || TransferDate > DateTime.UtcNow ) {
           results.Add( new ValidationResult( string.Format( ErrorMessageResource.InvalidError, DisplayNameResource.TransferDate ), new [] { nameof( TransferDate ) } ) );
         }
         if ( UserId == NewUserId ) {

@@ -42,13 +42,13 @@ namespace TTDesign.API.Services
       var result = new DashboardSummary();
       var users = await _userRepository.GetListByConditionTrack( x => x.IsActive );
       var projects = await _projectRepository.GetAll();
-      var projectActives = projects.Where( x => x.Status );
-      var projectEnds = projects.Where( x => x.Status );
+      var projectActives = projects.Where( x => x.Status == 1 );
+      var projectEnds = projects.Where( x => x.Status == 1 );
       if ( dashboard.TeamId is not null ) {
         users = await _userRepository.GetUsersDataByCondition( dashboard.TeamId );
         projects = projects.Where( x => x.TeamId == dashboard.TeamId );
-        projectActives = projects.Where( x => x.Status );
-        projectEnds = projects.Where( x => x.Status );
+        projectActives = projects.Where( x => x.Status == 1);
+        projectEnds = projects.Where( x => x.Status == 1 );
       }
       result.TotalEmployee = users.Count();
       result.TotalProject = projects.Count();
@@ -200,7 +200,7 @@ namespace TTDesign.API.Services
 
     public async Task<List<GetActiveProjectHoursResponse>> GetAnalysisDetailView( DashboardResource dashboard )
     {
-      var projects = await _projectRepository.GetListByCondition( x => x.Status );
+      var projects = await _projectRepository.GetListByCondition( x => x.Status == 1 );
       var result = new List<GetActiveProjectHoursResponse>();
       foreach ( var pr in projects ) {
 

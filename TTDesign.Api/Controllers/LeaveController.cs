@@ -323,7 +323,7 @@ namespace TTDesign.API.Controllers
     [HttpGet( "GetLeaveInformation" )]
     [Authorize]
     public async Task<IEnumerable<LeaveInformationResponse>> GetLeaveInformation()
-    {
+      {
       return await _leaveService.GetLeaveInformationResponses();
     }
     [HttpGet( "GetTotalLeavePending" )]

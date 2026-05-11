@@ -207,7 +207,7 @@ namespace TTDesign.API.Controllers
     private async Task<Dictionary<string, string>> ValidateBeforeCreate( FingerPrinterResource resource )
     {
       var errors = new Dictionary<string, string>();
-      var dateValidMinimum = DateTime.Now.AddMonths( -1 ).Date;
+      var dateValidMinimum = DateTime.UtcNow.AddMonths( -1 ).Date;
       dateValidMinimum = dateValidMinimum.AddDays( 1 - dateValidMinimum.Day );
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
       var teamUserLogins = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
@@ -225,7 +225,7 @@ namespace TTDesign.API.Controllers
       else if ( await _fingerPrinterService.CheckTimesheetHadLock( 0, resource.DateSelect ) ) {
         errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.HadLocked, DisplayNameResource.FingerPrinterDate ) );
       }
-      else if ( resource.DateSelect < dateValidMinimum || resource.DateSelect >= DateTime.Now.Date ) {
+      else if ( resource.DateSelect < dateValidMinimum || resource.DateSelect >= DateTime.UtcNow.Date ) {
         errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.DateRangeError, DisplayNameResource.FingerPrinterDate ) );
       }
       // kiểm tra user login ko là admin/HR thì phải tạo/sửa đúng team của mình thôi
@@ -237,17 +237,17 @@ namespace TTDesign.API.Controllers
         DateTime dateTimeTry;
         // valid time in
         if ( string.IsNullOrEmpty( resource.TimeIn ) || !DateTime.TryParse( date + " " + resource.TimeIn, out dateTimeTry ) ) {
-          resource.DateTimeIn = ( DateTime ) resource.DateSelect;
+          resource.DateTimeIn = DateTime.SpecifyKind( ( DateTime ) resource.DateSelect, DateTimeKind.Utc );
         }
         else {
-          resource.DateTimeIn = dateTimeTry;
+          resource.DateTimeIn = DateTime.SpecifyKind( dateTimeTry, DateTimeKind.Utc );
         }
         // valid time out
         if ( string.IsNullOrEmpty( resource.TimeIn ) || string.IsNullOrEmpty( resource.TimeOut ) || !DateTime.TryParse( date + " " + resource.TimeOut, out dateTimeTry ) ) {
-          resource.DateTimeOut = ( DateTime ) resource.DateSelect;
+          resource.DateTimeOut = DateTime.SpecifyKind( ( DateTime ) resource.DateSelect, DateTimeKind.Utc );
         }
         else {
-          resource.DateTimeOut = dateTimeTry;
+          resource.DateTimeOut = DateTime.SpecifyKind( dateTimeTry, DateTimeKind.Utc );
         }
         if ( resource.DateTimeOut < resource.DateTimeIn ) {
           errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.DatePastError, DisplayNameResource.FingerPrinterDate ) );
@@ -277,13 +277,13 @@ namespace TTDesign.API.Controllers
       else {
         var old = await _fingerPrinterService.GetByCondition( f => f.Id == resource.Id );
         var date = old!.DateIn.Date.ToString( Enums.DATE_FORMAT );
-        var dateValidMinimum = DateTime.Now.AddMonths( -1 ).Date;
+        var dateValidMinimum = DateTime.UtcNow.AddMonths( -1 ).Date;
         dateValidMinimum = dateValidMinimum.AddDays( 1 - dateValidMinimum.Day );
         // check record DB had exist
         if ( !await _timesheetService.Exist( t => t.UserId == resource.UserId && t.Date == old!.DateIn.Date ) ) {
           errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.HadExistError, DisplayNameResource.FingerPrinterDate ) );
         }
-        else if ( old!.DateIn.Date < dateValidMinimum || old!.DateIn.Date >= DateTime.Now.Date ) {
+        else if ( old!.DateIn.Date < dateValidMinimum || old!.DateIn.Date >= DateTime.UtcNow.Date ) {
           errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.DateRangeError, DisplayNameResource.FingerPrinterDate ) );
         }
         // kiểm tra user login ko là admin/HR thì phải tạo/sửa đúng team của mình thôi
@@ -297,14 +297,14 @@ namespace TTDesign.API.Controllers
             errors.Add( nameof( FingerPrinterResource.TimeIn ), string.Format( ErrorMessageResource.DateWrongFormat, DisplayNameResource.FingerPrinterTimeIn ) );
           }
           else {
-            resource.DateTimeIn = dateTimeTry;
+            resource.DateTimeIn = DateTime.SpecifyKind( dateTimeTry, DateTimeKind.Utc );
           }
           // valid time out
           if ( string.IsNullOrEmpty( resource.TimeOut ) || !DateTime.TryParse( date + " " + resource.TimeOut, out dateTimeTry ) ) {
             errors.Add( nameof( FingerPrinterResource.TimeOut ), string.Format( ErrorMessageResource.DateWrongFormat, DisplayNameResource.FingerPrinterTimeOut ) );
           }
           else {
-            resource.DateTimeOut = dateTimeTry;
+            resource.DateTimeOut = DateTime.SpecifyKind( dateTimeTry, DateTimeKind.Utc );
           }
           if ( resource.DateTimeOut < resource.DateTimeIn ) {
             errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.DatePastError, DisplayNameResource.FingerPrinterDate ) );
@@ -341,9 +341,9 @@ namespace TTDesign.API.Controllers
         if ( !Common.ValidRoleAdmin( positionUserLogin ) && !teamUserLogin.Contains( Enums.TEAM_HR ) && !new HashSet<long>( teamIds ).SetEquals( teamUserLogin ) ) {
           errors.Add( nameof( FingerPrinterResource.UserId ), string.Format( ErrorMessageResource.UserNotPermission, DisplayNameResource.FingerPrinterUser ) );
         }
-        var dateValidMinimum = DateTime.Now.AddMonths( -1 ).Date;
+        var dateValidMinimum = DateTime.UtcNow.AddMonths( -1 ).Date;
         dateValidMinimum = dateValidMinimum.AddDays( 1 - dateValidMinimum.Day );
-        if ( old!.DateIn.Date < dateValidMinimum || old!.DateIn.Date >= DateTime.Now.Date ) {
+        if ( old!.DateIn.Date < dateValidMinimum || old!.DateIn.Date >= DateTime.UtcNow.Date ) {
           errors.Add( Enums.ERROR_TEXT, string.Format( ErrorMessageResource.DateRangeError, DisplayNameResource.FingerPrinterDate ) );
         }
       }

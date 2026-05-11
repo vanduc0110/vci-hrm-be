@@ -134,7 +134,14 @@ namespace TTDesign.API.Services
       project.ProjectNumber = lastProject == null ? 1 : lastProject.ProjectNumber + 1;
       project.CreatedBy = creator;
       project.ModifiedBy = creator;
-project.Status = resource.Status == null || resource.Status == "Active";      project.ProjectManagement = string.Join( ",", resource.Manager.Select( x => x.ToString() ) );
+      project.Status = resource.Status switch
+      {
+        "Pending" => 0,
+        "Active" => 1,
+        "End" => 2,
+        _ => 1 // default
+      };
+      project.ProjectManagement = string.Join( ",", resource.Manager.Select( x => x.ToString() ) );
       project.Code = await GenerateProjectCode( project );
       // set Users
       project.Users = new List<User>();
@@ -282,7 +289,7 @@ project.Status = resource.Status == null || resource.Status == "Active";      pr
       {
         ProjectId = projectId,
         ProjectName = Common.FormatProjectName( project! ),
-        Status = project!.Status ? "Active" : "Inactive",
+        Status = project!.Status == 1 ? "Active" : "Inactive",
         Summary = new ProjectSummary()
         {
           TeamName = team!.Name,

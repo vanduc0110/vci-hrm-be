@@ -28,7 +28,7 @@ namespace TTDesign.API.Persistence.Repositories
           .AsNoTracking()
           .Where( u => u.Id == userId )
           .SelectMany( u => u.Projects )
-          .Where( p => p.Status  )
+          .Where( p => p.Status == 1  )
           .ToListAsync();
 
       var projectOptions = new List<ProjectOption>();
@@ -114,7 +114,7 @@ namespace TTDesign.API.Persistence.Repositories
 
     public async Task<List<long>> GetMemberOfProjects( long projectManager )
     {
-      return await _context.Projects.Include( p => p.Users ).Where( p => p.Status )
+      return await _context.Projects.Include( p => p.Users ).Where( p => p.Status == 1)
         .SelectMany( p => p.Users ).Select( u => u.Id ).Distinct().ToListAsync();
     }
   }
