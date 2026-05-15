@@ -152,7 +152,8 @@ namespace TTDesign.API.Controllers
       }
       var userLogin = long.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.NameIdentifier )!.Value );
       // valid timesheet ID có phải của user không
-      var ts = await _timesheetService.GetByCondition( t => t.Date == datetimeTry && t.UserId == userLogin );
+      var dayEnd = datetimeTry.AddDays( 1 );
+      var ts = await _timesheetService.GetByCondition( t => t.Date >= datetimeTry && t.Date < dayEnd && t.UserId == userLogin );
       if ( ts == null ) {
         return NotFound( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.Timesheet ) );
       }
@@ -186,15 +187,16 @@ namespace TTDesign.API.Controllers
       var teamUserLoginStr = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
       string [] parts = teamUserLoginStr.Split( "," );
       var teamUserLogins = parts.Select( long.Parse ).ToArray();
-      var ts = await _timesheetService.GetByCondition( t => t.Date == datetimeTry && t.UserId == userId );
-      var teams = await _timesheetService.GetTeamId( ts!.Id );
-      if ( !Common.ValidRoleAdmin( positionUserLogin ) && !teamUserLogins.Contains( Enums.TEAM_HR ) ) {
-        ts = new HashSet<long>( teams ).SetEquals( teamUserLogins ) ? ts : null;
-      }
-
-      // valid timesheet ID có phải của user không
+      var dayEnd = datetimeTry.AddDays( 1 );
+      var ts = await _timesheetService.GetByCondition( t => t.Date >= datetimeTry && t.Date < dayEnd && t.UserId == userId );
       if ( ts == null ) {
         return NotFound( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.Timesheet ) );
+      }
+      var teams = await _timesheetService.GetTeamId( ts.Id );
+      if ( !Common.ValidRoleAdmin( positionUserLogin ) && !teamUserLogins.Contains( Enums.TEAM_HR ) ) {
+        if ( !new HashSet<long>( teams ).SetEquals( teamUserLogins ) ) {
+          return NotFound( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.Timesheet ) );
+        }
       }
       var resource = await _timesheetService.GetDetail( ts.Id );
       if ( resource == null ) {
@@ -226,15 +228,18 @@ namespace TTDesign.API.Controllers
         return BadRequest( ErrorMessageResource.UserNotPermission );
       }
       var userLogin = long.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.NameIdentifier )!.Value );
+      // Team admin có thể khai báo cho nhân viên (gửi kèm UserId trong body)
+      // Người dùng thường chỉ khai báo cho chính mình
+      var targetUserId = ( resource.UserId > 0 && resource.UserId != userLogin ) ? resource.UserId : userLogin;
       // valid timesheet ID có phải của user không
-      if ( !await _timesheetService.Exist( t => t.Id == resource.Id && t.UserId == userLogin ) ) {
+      if ( !await _timesheetService.Exist( t => t.Id == resource.Id && t.UserId == targetUserId ) ) {
         return NotFound( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.Timesheet ) );
       }
       // valid
       if ( await ValidateBeforeCreate( resource ) )
         return BadRequest( resource );
       // create
-      await _timesheetService.Update( resource, userLogin );
+      await _timesheetService.Update( resource, targetUserId );
       return Ok();
     }
 

@@ -64,7 +64,7 @@ namespace TTDesign.API.Mapping
         } ) ) );
       CreateMap<Project, ProjectDetailResponse>()
         .ForMember( a => a.ClientName, opt => opt.MapFrom( a => a.Client!.Name ) )
-        .ForMember( a => a.Status, opt => opt.MapFrom( a => a.Status ) ) 
+        .ForMember( a => a.Status, opt => opt.MapFrom( a => Enum.GetName( typeof( Enums.ProjectStatus ), a.Status ) ?? "Active" ) )
         .ForMember( a => a.FullName, opt => opt.MapFrom( a => Common.FormatProjectName( a ) ) )
         .ForMember( a => a.Manager, opt => opt.MapFrom( a => a.ProjectManagement ) );
       #endregion

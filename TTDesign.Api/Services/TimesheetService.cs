@@ -115,16 +115,20 @@ namespace TTDesign.API.Services
           Lock = ts.LockBy is not null,
           IsWfh = ts.WfhRequestId is not null && ts.WfhRequestId > 0,
           TimeIn = ( ts.WfhRequestId is not null && ts.WfhRequestId > 0 ) ? Enums.TimeWfhCheckInDefault :
+            ts.FingerPrinter == null ? Enums.TimeCheckDefault :
             ts.FingerPrinter.SwapDayRefer != null ? ( ts.FingerPrinter.SwapDayRefer.DateIn == ts.FingerPrinter.SwapDayRefer.DateIn.Date ? Enums.TimeCheckDefault : ts.FingerPrinter.SwapDayRefer.DateIn.ToString( Enums.HOUR_FORMAT ) ) :
             ( ts.FingerPrinter.DateIn == ts.FingerPrinter.DateIn.Date ? Enums.TimeCheckDefault : ts.FingerPrinter.DateIn.ToString( Enums.HOUR_FORMAT ) ),
           TimeOut = ( ts.WfhRequestId is not null && ts.WfhRequestId > 0 ) ? Enums.TimeWfhCheckOutDefault :
+            ts.FingerPrinter == null ? Enums.TimeCheckDefault :
             ts.FingerPrinter.SwapDayRefer != null ? ( ts.FingerPrinter.SwapDayRefer.DateOut == ts.FingerPrinter.SwapDayRefer.DateOut.Date ? Enums.TimeCheckDefault : ts.FingerPrinter.SwapDayRefer.DateOut.ToString( Enums.HOUR_FORMAT ) ) :
             ( ts.FingerPrinter.DateOut == ts.FingerPrinter.DateOut.Date ? Enums.TimeCheckDefault : ts.FingerPrinter.DateOut.ToString( Enums.HOUR_FORMAT ) ),
           Date = ts.Date,
           HolidayName = ts.HolidayName,
           SwapDayDetail = ts.SwapDay is not null ? string.Format( ErrorMessageResource.SwapMessage, ts.SwapDay?.ToString( Enums.DATE_FORMAT ) ) : null,
           HourWorking = ts.TimesheetReports.Where( t => t.ProjectId > 0 ).Sum( t => t.Hours ),
-          HourTotal = ( ts.WfhRequestId is not null && ts.WfhRequestId > 0 ) ? Enums.TimeWork : ts.FingerPrinter.SwapDayRefer != null ? ts.FingerPrinter.SwapDayRefer.HourTotal : ts.FingerPrinter.HourTotal,
+          HourTotal = ( ts.WfhRequestId is not null && ts.WfhRequestId > 0 ) ? Enums.TimeWork :
+            ts.FingerPrinter == null ? 0 :
+            ts.FingerPrinter.SwapDayRefer != null ? ts.FingerPrinter.SwapDayRefer.HourTotal : ts.FingerPrinter.HourTotal,
           Tasks = ts.TimesheetReports.GroupBy( t => t.ProjectId ).Select( t => new TimesheetData()
           {
             ProjectId = t.Key,
@@ -179,12 +183,15 @@ namespace TTDesign.API.Services
         Lock = ts.LockBy is not null,
         IsWfh = ts.WfhRequestId > 0,
         TimeIn = ts.WfhRequestId > 0 ? Enums.TimeWfhCheckInDefault :
+          ts.FingerPrinter == null ? Enums.TimeCheckDefault :
           ts.FingerPrinter.SwapDayRefer != null ? ( ts.FingerPrinter.SwapDayRefer.DateIn == ts.FingerPrinter.SwapDayRefer.DateIn.Date ? Enums.TimeCheckDefault : ts.FingerPrinter.SwapDayRefer.DateIn.ToString( Enums.HOUR_FORMAT ) ) :
           ( ts.FingerPrinter.DateIn == ts.FingerPrinter.DateIn.Date ? Enums.TimeCheckDefault : ts.FingerPrinter.DateIn.ToString( Enums.HOUR_FORMAT ) ),
         TimeOut = ts.WfhRequestId > 0 ? Enums.TimeWfhCheckOutDefault :
+          ts.FingerPrinter == null ? Enums.TimeCheckDefault :
           ts.FingerPrinter.SwapDayRefer != null ? ( ts.FingerPrinter.SwapDayRefer.DateOut == ts.FingerPrinter.SwapDayRefer.DateOut.Date ? Enums.TimeCheckDefault : ts.FingerPrinter.SwapDayRefer.DateOut.ToString( Enums.HOUR_FORMAT ) ) :
           ( ts.FingerPrinter.DateOut == ts.FingerPrinter.DateOut.Date ? Enums.TimeCheckDefault : ts.FingerPrinter.DateOut.ToString( Enums.HOUR_FORMAT ) ),
         HourTotal = ts.WfhRequestId > 0 ? Common.FormatHoursDoubleToString( Enums.TimeWork ) :
+          ts.FingerPrinter == null ? Common.FormatHoursDoubleToString( 0 ) :
           ts.FingerPrinter.SwapDayRefer != null ? Common.FormatHoursDoubleToString( ts.FingerPrinter.SwapDayRefer.HourTotal ) : Common.FormatHoursDoubleToString( ts.FingerPrinter.HourTotal ),
         HourWorking = Common.FormatHoursDoubleToString( ts.TimesheetDetails.Sum( t => t.Hours ) ),
         Projects = new List<TimesheetDetailProjectData>()

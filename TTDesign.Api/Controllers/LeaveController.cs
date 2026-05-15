@@ -658,7 +658,7 @@ namespace TTDesign.API.Controllers
       else {
         var teamUser = await _teamService.GetTeamUserByUserId( leaveRequest.CreatedBy );
         if ( !Common.ValidRoleAdmin( positionUserLogin ) &&
-        !( ( positionUserLogin == ( int ) Enums.UserPosition.TeamLead || positionUserLogin == ( int ) Enums.UserPosition.SubLead ) && ( teamUser != null && new HashSet<long>( teamUser.Select( x => x.TeamId ) ).SetEquals( teamUserLogin ) ) ) ) {
+        !( ( positionUserLogin == ( int ) Enums.UserPosition.TeamLead || positionUserLogin == ( int ) Enums.UserPosition.SubLead ) && ( teamUser != null && new HashSet<long>( teamUser.Select( x => x.TeamId ) ).Overlaps( teamUserLogin ) ) ) ) {
           errors.Add( Enums.ERROR_TEXT, string.Format( ErrorMessageResource.UserNotPermission, DisplayNameResource.LeaveRequest ) );
         }
         else { // valid còn quỹ leave còn để nghỉ ko
