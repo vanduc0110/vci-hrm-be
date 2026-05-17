@@ -139,6 +139,9 @@ namespace TTDesign.API.Seeds
 
           new Claim (Constants.Roles.ROLE_ADMIN_WFH, Constants.Roles.PERMISSION_VIEW),
           new Claim (Constants.Roles.ROLE_ADMIN_WFH, Constants.Roles.PERMISSION_APPROVE),
+
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_APPROVE),
         };
         foreach ( var claim in claims ) {
           await roleManager.AddClaimAsync( role, claim );
@@ -239,6 +242,9 @@ namespace TTDesign.API.Seeds
 
           new Claim (Constants.Roles.ROLE_ADMIN_WFH, Constants.Roles.PERMISSION_VIEW),
           new Claim (Constants.Roles.ROLE_ADMIN_WFH, Constants.Roles.PERMISSION_APPROVE),
+
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_APPROVE),
         };
         foreach ( var claim in claims ) {
           await roleManager.AddClaimAsync( role, claim );
@@ -343,6 +349,9 @@ namespace TTDesign.API.Seeds
 
           new Claim (Constants.Roles.ROLE_ADMIN_WFH, Constants.Roles.PERMISSION_VIEW),
           //new Claim (Constants.Roles.ROLE_ADMIN_WFH, Constants.Roles.PERMISSION_APPROVE),
+
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_APPROVE),
         };
         foreach ( var claim in claims ) {
           await roleManager.AddClaimAsync( role, claim );
@@ -424,6 +433,92 @@ namespace TTDesign.API.Seeds
           //new Claim (Constants.Roles.ROLE_STAFF_LEAVE, Constants.Roles.PERMISSION_VIEW),
           new Claim (Constants.Roles.ROLE_STAFF_CALENDAR, Constants.Roles.PERMISSION_VIEW),
           new Claim (Constants.Roles.ROLE_STAFF_WFH, Constants.Roles.PERMISSION_VIEW),
+        };
+        foreach ( var claim in claims ) {
+          await roleManager.AddClaimAsync( role, claim );
+        }
+      }
+    }
+
+    /// <summary>
+    /// Patch thêm quyền admin:payroll vào các role đã tồn tại trong DB.
+    /// An toàn: chỉ thêm claim còn thiếu, không xóa gì.
+    /// </summary>
+    public static async Task PatchPayrollPermissionsAsync( RoleManager<Role> roleManager )
+    {
+      // Danh sách role -> các permission cần có cho admin:payroll
+      var map = new Dictionary<string, string[]>
+      {
+        { Roles.ROLE_NAME_SYSTEM,    new[] { Roles.PERMISSION_VIEW, Roles.PERMISSION_CREATE, Roles.PERMISSION_UPDATE, Roles.PERMISSION_APPROVE, Roles.PERMISSION_REPORT } },
+        { Roles.ROLE_NAME_DIRECTOR,  new[] { Roles.PERMISSION_VIEW, Roles.PERMISSION_CREATE, Roles.PERMISSION_UPDATE, Roles.PERMISSION_APPROVE, Roles.PERMISSION_REPORT } },
+        { Roles.ROLE_NAME_TEAMLEAD,  new[] { Roles.PERMISSION_VIEW, Roles.PERMISSION_APPROVE } },
+        { Roles.ROLE_NAME_SUBLEAD,   new[] { Roles.PERMISSION_VIEW, Roles.PERMISSION_APPROVE } },
+        { Roles.ROLE_NAME_PM,        new[] { Roles.PERMISSION_VIEW, Roles.PERMISSION_APPROVE } },
+        { Roles.ROLE_NAME_HR,        new[] { Roles.PERMISSION_VIEW, Roles.PERMISSION_CREATE, Roles.PERMISSION_UPDATE, Roles.PERMISSION_APPROVE, Roles.PERMISSION_REPORT } },
+      };
+
+      foreach ( var entry in map ) {
+        var role = await roleManager.FindByNameAsync( entry.Key );
+        if ( role == null ) continue;
+
+        var existing = ( await roleManager.GetClaimsAsync( role ) )
+          .Where( c => c.Type == Roles.ROLE_ADMIN_PAYROLL )
+          .Select( c => c.Value )
+          .ToHashSet();
+
+        foreach ( var perm in entry.Value ) {
+          if ( !existing.Contains( perm ) )
+            await roleManager.AddClaimAsync( role, new Claim( Roles.ROLE_ADMIN_PAYROLL, perm ) );
+        }
+      }
+    }
+
+    public static async Task SeedDefaultRoleHRAsync( RoleManager<Role> roleManager )
+    {
+      if ( await roleManager.FindByNameAsync( Constants.Roles.ROLE_NAME_HR ) is null ) {
+        var role = new Role
+        {
+          Name = Constants.Roles.ROLE_NAME_HR,
+          CreatedBy = Constants.Enums.SYSTEM_CREATOR,
+          ModifiedBy = Constants.Enums.SYSTEM_CREATOR,
+          Type = ( int ) Constants.Enums.RoleType.Default,
+        };
+        await roleManager.CreateAsync( role );
+        var claims = new HashSet<Claim>()
+        {
+          // Staff features
+          new Claim (Constants.Roles.ROLE_STAFF_DASHBOARD, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_STAFF_TIMESHEET, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_STAFF_LEAVE, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_STAFF_CALENDAR, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_STAFF_WFH, Constants.Roles.PERMISSION_VIEW),
+
+          // User management
+          new Claim (Constants.Roles.ROLE_ADMIN_USER, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_ADMIN_USER, Constants.Roles.PERMISSION_CREATE),
+          new Claim (Constants.Roles.ROLE_ADMIN_USER, Constants.Roles.PERMISSION_UPDATE),
+          new Claim (Constants.Roles.ROLE_ADMIN_USER, Constants.Roles.PERMISSION_INACTIVE),
+
+          // Leave management
+          new Claim (Constants.Roles.ROLE_ADMIN_LEAVE, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_ADMIN_LEAVE, Constants.Roles.PERMISSION_APPROVE),
+          new Claim (Constants.Roles.ROLE_ADMIN_LEAVE, Constants.Roles.PERMISSION_REPORT),
+          new Claim (Constants.Roles.ROLE_ADMIN_LEAVE, Constants.Roles.PERMISSION_HOLIDAY),
+
+          // WFH management
+          new Claim (Constants.Roles.ROLE_ADMIN_WFH, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_ADMIN_WFH, Constants.Roles.PERMISSION_APPROVE),
+
+          // Fingerprint / timesheet
+          new Claim (Constants.Roles.ROLE_ADMIN_FINGERPRINT, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_ADMIN_FINGERPRINT, Constants.Roles.PERMISSION_UPDATE),
+
+          // Payroll
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_VIEW),
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_CREATE),
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_UPDATE),
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_APPROVE),
+          new Claim (Constants.Roles.ROLE_ADMIN_PAYROLL, Constants.Roles.PERMISSION_REPORT),
         };
         foreach ( var claim in claims ) {
           await roleManager.AddClaimAsync( role, claim );

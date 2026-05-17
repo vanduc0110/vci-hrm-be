@@ -56,21 +56,19 @@ namespace TTDesign.API.Controllers
     public async Task<IEnumerable<TeamOption>> GetOption()
     {
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
-      var teamUsers = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
-      string [] parts = teamUsers.Split( ',' );
-      var teamUserLogin = ( long ) 0;
+      var teamStr = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )?.Value ?? "";
+      var teamUserLogins = teamStr.Length > 0 ? teamStr.Split( ',' ).Select( long.Parse ).ToArray() : Array.Empty<long>();
+      bool isLeadRole = positionUserLogin >= ( int ) Enums.UserPosition.TeamLead && positionUserLogin <= ( int ) Enums.UserPosition.PM;
       var result = new List<TeamOption>();
-      if ( parts.Length > 1 && parts.Any( x => x != Enums.TEAM_HR.ToString() ) ) {
-        foreach ( var p in parts ) {
-          var teamId = long.Parse( p );
-          var res1 = await _teamService.GetOption( !Common.ValidRoleAdmin( positionUserLogin ) ? teamId : null );
+      if ( !Common.ValidRoleAdmin( positionUserLogin ) && ( isLeadRole || !teamUserLogins.Contains( Enums.TEAM_HR ) ) ) {
+        foreach ( var teamId in teamUserLogins ) {
+          var res1 = await _teamService.GetOption( teamId );
           result.AddRange( res1.ToList() );
         }
-        return result;
+        return result.GroupBy( t => t.Id ).Select( g => g.First() ).ToList();
       }
       else {
-        teamUserLogin = long.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value );
-        return await _teamService.GetOption( ( !Common.ValidRoleAdmin( positionUserLogin ) && teamUserLogin != Enums.TEAM_HR ) ? teamUserLogin : null );
+        return await _teamService.GetOption( null );
       }
 
     }

@@ -70,8 +70,18 @@ namespace TTDesign.API.Persistence.Repositories
 
     public async Task<IEnumerable<Project>> GetProjects( long userId, int position, long? teamId = null )
     {
-      return await _context.Projects.Include( p => p.Client ).Include( p => p.Users ).ThenInclude( x => x.TeamUsers ).ThenInclude( x => x.Team ).Include( x => x.ProjectContracts )
-        .Where( p => teamId == null || p.TeamId == teamId || ( ( position == ( int ) Enums.UserPosition.PM || position == ( int ) Enums.UserPosition.SubLead || position == ( int ) Enums.UserPosition.TeamLead ) && EF.Functions.Like( p.ProjectManagement, $"%{userId}%" ) ) ).ToListAsync();
+      bool isLeadRole = position == ( int ) Enums.UserPosition.PM
+                     || position == ( int ) Enums.UserPosition.SubLead
+                     || position == ( int ) Enums.UserPosition.TeamLead;
+      return await _context.Projects
+        .Include( p => p.Client )
+        .Include( p => p.Users ).ThenInclude( x => x.TeamUsers ).ThenInclude( x => x.Team )
+        .Include( x => x.ProjectContracts )
+        .Where( p =>
+          teamId == null ||
+          ( p.TeamId == teamId && ( !isLeadRole || p.Users.Any( u => u.Id == userId ) ) ) ||
+          ( isLeadRole && EF.Functions.Like( p.ProjectManagement, $"%{userId}%" ) )
+        ).ToListAsync();
     }
 
     public async Task<Project?> GetProjectDataById( long id )

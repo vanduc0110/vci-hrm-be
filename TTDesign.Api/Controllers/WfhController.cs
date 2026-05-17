@@ -72,11 +72,11 @@ namespace TTDesign.API.Controllers
       }
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
       var userLogin = long.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.NameIdentifier )!.Value );
-      var teamUserLoginStrs = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
-      string [] parts = teamUserLoginStrs.Split( "," );
-      var teamUserLogins = parts.Select( long.Parse ).ToArray();
+      var teamStr = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )?.Value ?? "";
+      var teamUserLogins = teamStr.Length > 0 ? teamStr.Split( "," ).Select( long.Parse ).ToArray() : Array.Empty<long>();
+      bool isLeadRole = positionUserLogin >= ( int ) Enums.UserPosition.TeamLead && positionUserLogin <= ( int ) Enums.UserPosition.PM;
       var list = new List<WfhResponse>();
-      if ( !Common.ValidRoleAdmin( positionUserLogin ) && parts.Any( x => x != Enums.TEAM_HR.ToString() ) ) {
+      if ( !Common.ValidRoleAdmin( positionUserLogin ) && ( isLeadRole || !teamUserLogins.Contains( Enums.TEAM_HR ) ) ) {
         foreach ( var teamId in teamUserLogins ) {
           var res = await _wfhService.GetList( new BaseFilter()
           {
@@ -87,7 +87,7 @@ namespace TTDesign.API.Controllers
           } );
           list.AddRange( res );
         }
-        return Ok( list );
+        return Ok( list.GroupBy( r => r.Id ).Select( g => g.First() ).ToList() );
       }
       else {
         return Ok( await _wfhService.GetList( new BaseFilter()

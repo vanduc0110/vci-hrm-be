@@ -65,6 +65,14 @@ namespace TTDesign.API.Extensions
       services.AddScoped<IAssetComponentRepository, AssetComponentRepository>();
       services.AddScoped<IFingerPrinterLogRepository, FingerPrinterLogRepository>();
 
+      // Payroll
+      services.AddScoped<ISalaryRepository, SalaryRepository>();
+      services.AddScoped<IPayrollRepository, PayrollRepository>();
+      services.AddScoped<IPayrollDetailRepository, PayrollDetailRepository>();
+      services.AddScoped<IBonusRepository, BonusRepository>();
+      services.AddScoped<ITaxBracketRepository, TaxBracketRepository>();
+      services.AddScoped<ISocialInsuranceRateRepository, SocialInsuranceRateRepository>();
+
     }
 
     public static void ConfigureServiceManager( this IServiceCollection services )
@@ -91,6 +99,13 @@ namespace TTDesign.API.Extensions
       services.AddScoped<IAssetCategoryService, AssetCategoryService>();
       services.AddScoped<IAssetService, AssetService>();
       services.AddScoped<IEmailSenderService, EmailSenderService>();
+
+      // Payroll
+      services.AddScoped<ISalaryService, SalaryService>();
+      services.AddScoped<IPayrollService, PayrollService>();
+      services.AddScoped<IBonusService, BonusService>();
+      services.AddScoped<ITaxBracketService, TaxBracketService>();
+      services.AddScoped<ISocialInsuranceRateService, SocialInsuranceRateService>();
     }
 
     public static void ConfigureAuthorizationPolicy( this IServiceCollection services )
@@ -154,9 +169,13 @@ namespace TTDesign.API.Extensions
             context => context.User.HasClaim( claim =>
               ( claim.Type == Roles.ROLE_ADMIN_USER && ( claim.Value == Roles.PERMISSION_CREATE || claim.Value == Roles.PERMISSION_UPDATE ) ) ) ) );
         options.AddPolicy( Policies.ROLE_GET_LIST, policyBuilder => policyBuilder.RequireAssertion(
-            context => context.User.HasClaim( claim => claim.Type == Roles.ROLE_ADMIN_ROLE && claim.Value == Roles.PERMISSION_VIEW ) ) );
+            context => context.User.HasClaim( claim =>
+              ( claim.Type == Roles.ROLE_ADMIN_ROLE && claim.Value == Roles.PERMISSION_VIEW ) ||
+              ( claim.Type == Roles.ROLE_ADMIN_USER && claim.Value == Roles.PERMISSION_VIEW ) ) ) );
         options.AddPolicy( Policies.ROLE_GET_DETAIL, policyBuilder => policyBuilder.RequireAssertion(
-            context => context.User.HasClaim( claim => claim.Type == Roles.ROLE_ADMIN_ROLE && claim.Value == Roles.PERMISSION_VIEW ) ) );
+            context => context.User.HasClaim( claim =>
+              ( claim.Type == Roles.ROLE_ADMIN_ROLE && claim.Value == Roles.PERMISSION_VIEW ) ||
+              ( claim.Type == Roles.ROLE_ADMIN_USER && claim.Value == Roles.PERMISSION_VIEW ) ) ) );
         options.AddPolicy( Policies.ROLE_GET_COLLECTION, policyBuilder => policyBuilder.RequireAssertion(
             context => context.User.HasClaim( claim =>
               ( claim.Type == Roles.ROLE_ADMIN_ROLE && ( claim.Value == Roles.PERMISSION_CREATE || claim.Value == Roles.PERMISSION_UPDATE ) ) ) ) );

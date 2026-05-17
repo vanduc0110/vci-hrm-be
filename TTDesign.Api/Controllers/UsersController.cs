@@ -84,16 +84,17 @@ namespace TTDesign.API.Controllers
     public async Task<IEnumerable<UserOption>> GetOption()
     {
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
-      var teamUserLoginStrs = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
-      string [] parts = teamUserLoginStrs.Split( "," );
-      var teamUserLogins = parts.Select( long.Parse ).ToArray();
+      var teamStr = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )?.Value ?? "";
+      var teamUserLogins = teamStr.Length > 0 ? teamStr.Split( "," ).Select( long.Parse ).ToArray() : Array.Empty<long>();
+      bool hasPayrollFull = HttpContext.User.HasClaim( c => c.Type == Roles.ROLE_ADMIN_PAYROLL && c.Value == Roles.PERMISSION_CREATE );
+      bool isLeadRole = positionUserLogin >= ( int ) Enums.UserPosition.TeamLead && positionUserLogin <= ( int ) Enums.UserPosition.PM;
       var list = new List<UserOption>();
-      if ( !Common.ValidRoleAdmin( positionUserLogin ) && !teamUserLogins.Contains( Enums.TEAM_HR ) ) {
+      if ( !Common.ValidRoleAdmin( positionUserLogin ) && ( isLeadRole || ( !teamUserLogins.Contains( Enums.TEAM_HR ) && !hasPayrollFull ) ) ) {
         foreach ( var teamId in teamUserLogins ) {
           var res = ( await _userService.GetOption() ).Where( u => u.TeamIds.Contains( teamId ) );
           list.AddRange( res );
         }
-        return list;
+        return list.GroupBy( u => u.Id ).Select( g => g.First() );
       }
       else {
         return await _userService.GetOption();
@@ -112,16 +113,16 @@ namespace TTDesign.API.Controllers
     public async Task<IEnumerable<UserResponse>> GetListView()
     {
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
-      var teamUserLoginStrs = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
-      string [] parts = teamUserLoginStrs.Split( "," );
-      var teamUserLogins = parts.Select( long.Parse ).ToArray();
+      var teamStr = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )?.Value ?? "";
+      var teamUserLogins = teamStr.Length > 0 ? teamStr.Split( "," ).Select( long.Parse ).ToArray() : Array.Empty<long>();
+      bool isLeadRole = positionUserLogin >= ( int ) Enums.UserPosition.TeamLead && positionUserLogin <= ( int ) Enums.UserPosition.PM;
       var list = new List<UserResponse>();
-      if ( !Common.ValidRoleAdmin( positionUserLogin ) && !teamUserLogins.Contains( Enums.TEAM_HR ) ) {
+      if ( !Common.ValidRoleAdmin( positionUserLogin ) && ( isLeadRole || !teamUserLogins.Contains( Enums.TEAM_HR ) ) ) {
         foreach ( var teamId in teamUserLogins ) {
           var res = await _userService.GetList( new BaseFilter() { TeamId = teamId } );
           list.AddRange( res );
         }
-        return list;
+        return list.GroupBy( u => u.Id ).Select( g => g.First() );
       }
       else {
         return await _userService.GetList( new BaseFilter() { TeamId = null } );
@@ -215,9 +216,11 @@ namespace TTDesign.API.Controllers
       }
       // user ko là admin thì phạm vi ảnh hưởng trong team của mình
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
-      var teamUserLogin = long.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value );
-      if ( !Common.ValidRoleAdmin( positionUserLogin ) && teamUserLogin != Enums.TEAM_HR ) {
-        resource.TeamIds = new long [] { teamUserLogin };
+      var teamStr      = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
+      var teamUserIds  = teamStr.Split( ',' ).Select( long.Parse ).ToArray();
+      var teamUserLogin = teamUserIds [ 0 ];
+      if ( !Common.ValidRoleAdmin( positionUserLogin ) && !teamUserIds.Contains( Enums.TEAM_HR ) ) {
+        resource.TeamIds = teamUserIds;
       }
       var userLogin = long.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.NameIdentifier )!.Value );
       // create
@@ -503,7 +506,8 @@ namespace TTDesign.API.Controllers
     {
       var errors = new Dictionary<string, string>();
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
-      var teamUserLogin = long.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value );
+      var teamStr     = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
+      var teamUserIds = teamStr.Split( ',' ).Select( long.Parse ).ToArray();
       // valid: không được sửa user system
       if ( resource.Id == Enums.SYSTEM_ID ) {
         errors.Add( Enums.ERROR_TEXT, string.Format( ErrorMessageResource.UserNotPermission, DisplayNameResource.User ) );
@@ -513,7 +517,7 @@ namespace TTDesign.API.Controllers
         errors.Add( Enums.ERROR_TEXT, string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.User ) );
       }
       // Valid: User login không là admin, User login không được sửa User team khác
-      else if ( !Common.ValidRoleAdmin( positionUserLogin ) && teamUserLogin != Enums.TEAM_HR && !resource.TeamIds.Contains( teamUserLogin ) ) {
+      else if ( !Common.ValidRoleAdmin( positionUserLogin ) && !teamUserIds.Contains( Enums.TEAM_HR ) && !resource.TeamIds.Any( t => teamUserIds.Contains( t ) ) ) {
         errors.Add( Enums.ERROR_TEXT, string.Format( ErrorMessageResource.UserNotPermission, DisplayNameResource.User ) );
       }
       return errors;

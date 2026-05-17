@@ -248,7 +248,7 @@ namespace TTDesign.API.Resources
       Asset = new MenuDetailAdminAsset( Claims, TeamHR );
       WFH = new MenuDetailAdminWfh( Claims, TeamHR );
       Dashboard = new MenuDetailAdminDashboard( Claims, TeamHR );
-
+      Payroll = new MenuDetailAdminPayroll( Claims );
     }
     public MenuDetailAdminUser User { get; set; }
     public MenuDetailAdminTimesheet Timesheet { get; set; }
@@ -256,6 +256,7 @@ namespace TTDesign.API.Resources
     public MenuDetailAdminAsset Asset { get; set; }
     public MenuDetailAdminWfh WFH { get; set; }
     public MenuDetailAdminDashboard Dashboard { get; set; }
+    public MenuDetailAdminPayroll Payroll { get; set; }
   }
 
   public class MenuDetailStaffDashboard
@@ -555,6 +556,23 @@ namespace TTDesign.API.Resources
     /// </summary>
     public bool IsView => TabWfhRequest!.IsView;
     public MenuTab TabWfhRequest { get; set; }
+  }
+
+  public class MenuDetailAdminPayroll
+  {
+    public MenuDetailAdminPayroll( List<Claim> Claims )
+    {
+      IsView    = Claims.Any( c => c.Type == Roles.ROLE_ADMIN_PAYROLL && c.Value == Roles.PERMISSION_VIEW );
+      IsCreate  = Claims.Any( c => c.Type == Roles.ROLE_ADMIN_PAYROLL && c.Value == Roles.PERMISSION_CREATE );
+      IsUpdate  = Claims.Any( c => c.Type == Roles.ROLE_ADMIN_PAYROLL && c.Value == Roles.PERMISSION_UPDATE );
+      IsApprove = Claims.Any( c => c.Type == Roles.ROLE_ADMIN_PAYROLL && c.Value == Roles.PERMISSION_APPROVE );
+      IsReport  = Claims.Any( c => c.Type == Roles.ROLE_ADMIN_PAYROLL && c.Value == Roles.PERMISSION_REPORT );
+    }
+    public bool IsView    { get; set; }
+    public bool IsCreate  { get; set; }
+    public bool IsUpdate  { get; set; }
+    public bool IsApprove { get; set; }
+    public bool IsReport  { get; set; }
   }
 
   public class MenuTab

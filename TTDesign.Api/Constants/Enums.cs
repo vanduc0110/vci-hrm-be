@@ -409,6 +409,33 @@ namespace TTDesign.API.Constants
       PC,
       Laptop
     }
+
+    public enum PayrollStatus
+    {
+      Draft = 0,             // HR tạo / tính lương
+      LeadConfirmed = 1,     // Lead/Manager xác nhận công & OT
+      HRApproved = 2,        // HR tổng hợp, chốt lương
+      DirectorApproved = 3,  // Giám đốc duyệt ngân sách
+      Paid = 4,              // Đã thanh toán
+      Canceled = 5,          // Đã hủy
+      Rejected = 6,          // Bị từ chối (Lead hoặc Director) — trả lại cho HR xem xét
+    }
+
+    public enum DeductionType
+    {
+      SocialInsurance,
+      HealthInsurance,
+      UnemploymentInsurance,
+      IncomeTax,
+      Other
+    }
+
+    public enum OvertimeDayType
+    {
+      Normal,
+      Weekend,
+      Holiday
+    }
   }
 
   /// <summary>
@@ -424,6 +451,7 @@ namespace TTDesign.API.Constants
     public const string ROLE_NAME_OFFICIAL = "Official Staff";
     public const string ROLE_NAME_PROBATIONARY = "Probationary Staff";
     public const string ROLE_NAME_INTERNSHIP = "Internship";
+    public const string ROLE_NAME_HR = "HR";
 
     public const string ROLE_STAFF_DASHBOARD = "staff:dashboard";
     public const string ROLE_STAFF_TIMESHEET = "staff:timesheet";
@@ -450,6 +478,7 @@ namespace TTDesign.API.Constants
     public const string ROLE_ADMIN_PRODUCT = "admin:product";
     public const string ROLE_ADMIN_BILL = "admin:bill";
     public const string ROLE_ADMIN_WFH = "admin:wfh";
+    public const string ROLE_ADMIN_PAYROLL = "admin:payroll";
     public const string ROLE_ADMIN_CONFIG = "admin:config";
     public const string ROLE_ADMIN_DASHBOARD = "admin:dashboard";
     public const string ROLE_ADMIN_USER_REPORT = "admin:report";

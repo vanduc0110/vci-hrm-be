@@ -126,13 +126,13 @@ namespace TTDesign.API.Services
 
     public async Task MarkReadAll( long userId )
     {
-      var notis = await _notificationAssignRepository.GetListByCondition( n => n.UserId == userId && n.Status);
-      if ( notis.Count() > 0 ) {
+      var notis = await _notificationAssignRepository.GetListByCondition( n => n.UserId == userId && !n.Status );
+      if ( notis.Any() ) {
         foreach ( var noti in notis ) {
-          noti.Status =true;
+          noti.Status = true;
         }
+        _notificationAssignRepository.Updates( notis.ToArray() );
       }
-      _notificationAssignRepository.Updates( notis.ToArray() );
     }
 
     public async Task DeleteAll( long userId )
@@ -144,6 +144,7 @@ namespace TTDesign.API.Services
     {
       var noti = await _notificationAssignRepository.GetByCondition( n => n.NotificationId == id && n.UserId == userId );
       if ( noti is not null ) {
+        noti.Status = true;
         _notificationAssignRepository.Update( noti );
       }
     }

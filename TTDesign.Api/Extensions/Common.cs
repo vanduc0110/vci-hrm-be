@@ -408,6 +408,13 @@ namespace TTDesign.API.Extensions
           new RoleModel(){ Type = Roles.ROLE_ADMIN_WFH, Value = Roles.PERMISSION_VIEW, Name = Roles.PERMISSION_VIEW_NAME },
           new RoleModel(){ Type = Roles.ROLE_ADMIN_WFH, Value = Roles.PERMISSION_APPROVE, Name = Roles.PERMISSION_APPROVE_NAME },
         } },
+        { "(Admin) Payroll", new RoleModel[] {
+          new RoleModel(){ Type = Roles.ROLE_ADMIN_PAYROLL, Value = Roles.PERMISSION_VIEW, Name = Roles.PERMISSION_VIEW_NAME },
+          new RoleModel(){ Type = Roles.ROLE_ADMIN_PAYROLL, Value = Roles.PERMISSION_CREATE, Name = Roles.PERMISSION_CREATE_NAME },
+          new RoleModel(){ Type = Roles.ROLE_ADMIN_PAYROLL, Value = Roles.PERMISSION_UPDATE, Name = Roles.PERMISSION_UPDATE_NAME },
+          new RoleModel(){ Type = Roles.ROLE_ADMIN_PAYROLL, Value = Roles.PERMISSION_APPROVE, Name = Roles.PERMISSION_APPROVE_NAME },
+          new RoleModel(){ Type = Roles.ROLE_ADMIN_PAYROLL, Value = Roles.PERMISSION_REPORT, Name = Roles.PERMISSION_REPORT_NAME },
+        } },
           { "(Admin) Config", new RoleModel[] {
           new RoleModel(){ Type = Roles.ROLE_ADMIN_CONFIG, Value = Roles.PERMISSION_VIEW, Name = Roles.PERMISSION_VIEW_NAME },
           new RoleModel(){ Type = Roles.ROLE_ADMIN_CONFIG, Value = Roles.PERMISSION_CREATE, Name = Roles.PERMISSION_CREATE_NAME },

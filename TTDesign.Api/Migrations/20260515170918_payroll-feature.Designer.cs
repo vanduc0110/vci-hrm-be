@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TTDesign.API.Persistence.Contexts;
@@ -11,9 +12,11 @@ using TTDesign.API.Persistence.Contexts;
 namespace TTDesign.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260515170918_payroll-feature")]
+    partial class payrollfeature
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1806,12 +1809,6 @@ namespace TTDesign.API.Migrations
 
                     b.Property<decimal>("AllowanceTransport")
                         .HasColumnType("numeric");
-
-                    b.Property<long?>("ApprovedBy")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("ApprovedDate")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("BasicSalary")
                         .HasColumnType("numeric");

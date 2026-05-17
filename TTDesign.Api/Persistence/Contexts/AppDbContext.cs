@@ -52,6 +52,12 @@ namespace TTDesign.API.Persistence.Contexts
     public virtual DbSet<Component> Components { get; set; }
     public virtual DbSet<AssetComponentHistory> AssetComponents { get; set; }
     public virtual DbSet<AssetHistory> AssetHistories { get; set; }
+    public virtual DbSet<Salary> Salaries { get; set; } = null!;
+    public virtual DbSet<Payroll> Payrolls { get; set; } = null!;
+    public virtual DbSet<PayrollDetail> PayrollDetails { get; set; } = null!;
+    public virtual DbSet<Bonus> Bonuses { get; set; } = null!;
+    public virtual DbSet<TaxBracket> TaxBrackets { get; set; } = null!;
+    public virtual DbSet<SocialInsuranceRate> SocialInsuranceRates { get; set; } = null!;
 
     protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder )
     {

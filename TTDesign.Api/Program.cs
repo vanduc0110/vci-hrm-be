@@ -215,6 +215,8 @@ using ( var scope = app.Services.CreateScope() ) {
     await TTDesign.API.Seeds.DefaultRoles.SeedDefaultRoleOfficalAsync( roleManager! );
     await TTDesign.API.Seeds.DefaultRoles.SeedDefaultRoleProbationaryAsync( roleManager! );
     await TTDesign.API.Seeds.DefaultRoles.SeedDefaultRoleInternshipAsync( roleManager! );
+    await TTDesign.API.Seeds.DefaultRoles.SeedDefaultRoleHRAsync( roleManager! );
+    await TTDesign.API.Seeds.DefaultRoles.PatchPayrollPermissionsAsync( roleManager! );
 
     var userManager = services.GetService<UserManager<User>>();
     await TTDesign.API.Seeds.DefaultUsers.SeedSuperAdminAsync( userManager! );

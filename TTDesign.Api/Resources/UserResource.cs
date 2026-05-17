@@ -173,8 +173,7 @@ namespace TTDesign.API.Resources
       var results = new List<ValidationResult>();
       var dbContext = validationContext.GetService( typeof( AppDbContext ) ) as AppDbContext;
       if ( dbContext is null ||
-        ( Id is not null && !dbContext.Users.Any( t => t.Id == Id ) ) ||
-        ( Id is not null && dbContext.Users.Any( t => t.Id == Id && t.IsActive ) ) ) {
+        ( Id is not null && !dbContext.Users.Any( t => t.Id == Id && t.IsActive ) ) ) {
         results.Add( new ValidationResult( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.User ), new [] { Enums.ERROR_TEXT } ) );
       }
       else {
@@ -317,8 +316,7 @@ namespace TTDesign.API.Resources
       var results = new List<ValidationResult>();
       var dbContext = validationContext.GetService( typeof( AppDbContext ) ) as AppDbContext;
       if ( dbContext is null ||
-        ( Id is not null && !dbContext.Users.Any( t => t.Id == Id ) ) ||
-        ( Id is not null && dbContext.Users.Any( t => t.Id == Id && t.IsActive ) ) ) {
+        ( Id is not null && !dbContext.Users.Any( t => t.Id == Id && t.IsActive ) ) ) {
         results.Add( new ValidationResult( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.User ), new [] { Enums.ERROR_TEXT } ) );
       }
       return results;
@@ -680,8 +678,7 @@ namespace TTDesign.API.Resources
       var results = new List<ValidationResult>();
       var dbContext = validationContext.GetService( typeof( AppDbContext ) ) as AppDbContext;
       if ( dbContext is null ||
-        ( Id is not null && !dbContext.Users.Any( t => t.Id == Id ) ) ||
-        ( Id is not null && dbContext.Users.Any( t => t.Id == Id && t.IsActive ) ) ) {
+        ( Id is not null && !dbContext.Users.Any( t => t.Id == Id && t.IsActive ) ) ) {
         results.Add( new ValidationResult( string.Format( ErrorMessageResource.ExistFieldError, DisplayNameResource.User ) ) );
       }
       return results;

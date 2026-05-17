@@ -207,7 +207,8 @@ namespace TTDesign.API.Controllers
     private async Task<Dictionary<string, string>> ValidateBeforeCreate( FingerPrinterResource resource )
     {
       var errors = new Dictionary<string, string>();
-      var dateValidMinimum = DateTime.UtcNow.AddMonths( -1 ).Date;
+      var todayVn        = TimeZoneInfo.ConvertTimeFromUtc( DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById( "SE Asia Standard Time" ) ).Date;
+      var dateValidMinimum = todayVn.AddMonths( -1 );
       dateValidMinimum = dateValidMinimum.AddDays( 1 - dateValidMinimum.Day );
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
       var teamUserLogins = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
@@ -225,7 +226,7 @@ namespace TTDesign.API.Controllers
       else if ( await _fingerPrinterService.CheckTimesheetHadLock( 0, resource.DateSelect ) ) {
         errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.HadLocked, DisplayNameResource.FingerPrinterDate ) );
       }
-      else if ( resource.DateSelect < dateValidMinimum || resource.DateSelect >= DateTime.UtcNow.Date ) {
+      else if ( resource.DateSelect < dateValidMinimum || resource.DateSelect > todayVn ) {
         errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.DateRangeError, DisplayNameResource.FingerPrinterDate ) );
       }
       // kiểm tra user login ko là admin/HR thì phải tạo/sửa đúng team của mình thôi
@@ -277,13 +278,14 @@ namespace TTDesign.API.Controllers
       else {
         var old = await _fingerPrinterService.GetByCondition( f => f.Id == resource.Id );
         var date = old!.DateIn.Date.ToString( Enums.DATE_FORMAT );
-        var dateValidMinimum = DateTime.UtcNow.AddMonths( -1 ).Date;
+        var todayVnUpd       = TimeZoneInfo.ConvertTimeFromUtc( DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById( "SE Asia Standard Time" ) ).Date;
+        var dateValidMinimum = todayVnUpd.AddMonths( -1 );
         dateValidMinimum = dateValidMinimum.AddDays( 1 - dateValidMinimum.Day );
         // check record DB had exist
         if ( !await _timesheetService.Exist( t => t.UserId == resource.UserId && t.Date == old!.DateIn.Date ) ) {
           errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.HadExistError, DisplayNameResource.FingerPrinterDate ) );
         }
-        else if ( old!.DateIn.Date < dateValidMinimum || old!.DateIn.Date >= DateTime.UtcNow.Date ) {
+        else if ( old!.DateIn.Date < dateValidMinimum || old!.DateIn.Date > todayVnUpd ) {
           errors.Add( nameof( FingerPrinterResource.DateSelect ), string.Format( ErrorMessageResource.DateRangeError, DisplayNameResource.FingerPrinterDate ) );
         }
         // kiểm tra user login ko là admin/HR thì phải tạo/sửa đúng team của mình thôi

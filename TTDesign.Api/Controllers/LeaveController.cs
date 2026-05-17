@@ -74,29 +74,28 @@ namespace TTDesign.API.Controllers
         return BadRequest( string.Format( ErrorMessageResource.DateWrongFormat ) );
       }
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
-      var teamUsers = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
-      string [] parts = teamUsers.Split( ',' );
+      var teamStr = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )?.Value ?? "";
+      var teamUserLogins = teamStr.Length > 0 ? teamStr.Split( ',' ).Select( long.Parse ).ToArray() : Array.Empty<long>();
       var userLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.NameIdentifier )!.Value );
+      bool isLeadRole = positionUserLogin >= ( int ) Enums.UserPosition.TeamLead && positionUserLogin <= ( int ) Enums.UserPosition.PM;
       var result = new List<LeaveRequestResponse>();
-      if ( parts.Length > 1 && parts.Any( x => x != Enums.TEAM_HR.ToString() ) ) {
-        foreach ( var p in parts ) {
-          var teamId = long.Parse( p );
+      if ( !Common.ValidRoleAdmin( positionUserLogin ) && ( isLeadRole || !teamUserLogins.Contains( Enums.TEAM_HR ) ) ) {
+        foreach ( var teamId in teamUserLogins ) {
           var res1 = await _leaveService.GetList( new BaseFilter()
           {
-            TeamId = !Common.ValidRoleAdmin( positionUserLogin ) ? teamId : null,
+            TeamId = teamId,
             Year = year,
             Month = month,
             UserId = userLogin
           } );
           result.AddRange( res1.ToList() );
         }
-        return Ok( result );
+        return Ok( result.GroupBy( r => r.Id ).Select( g => g.First() ).ToList() );
       }
       else {
-        var teamUserLogin = long.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value );
         return Ok( await _leaveService.GetList( new BaseFilter()
         {
-          TeamId = ( !Common.ValidRoleAdmin( positionUserLogin ) && teamUserLogin != Enums.TEAM_HR ) ? teamUserLogin : null,
+          TeamId = null,
           Year = year,
           Month = month,
           UserId = userLogin
@@ -279,16 +278,16 @@ namespace TTDesign.API.Controllers
     public async Task<LeaveReport> GetReport( long year )
     {
       var positionUserLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.Role )!.Value );
-      var teamUsers = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )!.Value;
-      string [] parts = teamUsers.Split( ',' );
-      var userLogin = int.Parse( HttpContext.User.Claims.FirstOrDefault( x => x.Type == ClaimTypes.NameIdentifier )!.Value );
+      var teamStr = HttpContext.User.Claims.FirstOrDefault( x => x.Type == Enums.CLAIM_TYPE_TEAM )?.Value ?? "";
+      var teamUserLogins = teamStr.Length > 0 ? teamStr.Split( ',' ).Select( long.Parse ).ToArray() : Array.Empty<long>();
+      bool isLeadRole = positionUserLogin >= ( int ) Enums.UserPosition.TeamLead && positionUserLogin <= ( int ) Enums.UserPosition.PM;
       var result = new LeaveReport();
-      if ( parts.Length >= 1 && parts.Any( x => x != Enums.TEAM_HR.ToString() ) && userLogin != 1 ) {
-        foreach ( var p in parts ) {
-          var teamId = long.Parse( p );
+      if ( !Common.ValidRoleAdmin( positionUserLogin ) && ( isLeadRole || !teamUserLogins.Contains( Enums.TEAM_HR ) ) ) {
+        foreach ( var teamId in teamUserLogins ) {
           var res1 = await _leaveService.GetReport( teamId, year );
           result.AnnualLeaves.AddRange( res1.AnnualLeaves );
         }
+        result.AnnualLeaves = result.AnnualLeaves.GroupBy( u => u.UserId ).Select( g => g.First() ).ToList();
         return result;
       }
       else {
